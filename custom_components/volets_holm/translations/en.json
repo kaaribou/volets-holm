@@ -1,0 +1,251 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Volets HOLM",
+        "description": "Your time-based covers (RFXCOM and others) and wall switches, configured from the UI.\n\nDetected: **{volets}** Cover Time Based cover(s) and **{liaisons}** other wall switch link(s), handled by **{automations}** automation(s).\n\n{details}",
+        "data": {
+          "import_legacy": "Import existing setup",
+          "disable_automations": "Disable the replaced wall switch automations"
+        },
+        "data_description": {
+          "import_legacy": "Covers keep their entity_id, area, voice aliases and labels: your automations, groups and dashboards keep working. Then remove the cover_rf_time_based section from configuration.yaml and restart.",
+          "disable_automations": "They are only disabled, not deleted: you can re-enable them if needed."
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Volets HOLM is already configured.",
+      "single_instance_allowed": "Volets HOLM is already configured."
+    }
+  },
+  "config_subentries": {
+    "volet": {
+      "entry_type": "Cover",
+      "initiate_flow": {
+        "user": "Add a cover",
+        "reconfigure": "Edit cover"
+      },
+      "step": {
+        "user": {
+          "title": "New cover",
+          "description": "A cover whose position is computed from its travel time.",
+          "data": {
+            "name": "Cover name",
+            "switch": "Motor control",
+            "inverted": "Inverted control",
+            "time_up": "Opening time",
+            "time_down": "Closing time",
+            "area_id": "Area",
+            "wall_event": "Wall switch or remote",
+            "wall_mode": "Switch behaviour"
+          },
+          "data_description": {
+            "name": "Display name, e.g. “Office shutter”.",
+            "switch": "The entity driving the motor (e.g. an RFXCOM switch): on = open, off = close.",
+            "inverted": "Tick if the cover closes when the control is turned on.",
+            "time_up": "Time for a full opening, closed to open. The calibration wizard can measure it for you.",
+            "time_down": "Time for a full closing, open to closed.",
+            "area_id": "Area of the device created for this cover.",
+            "wall_event": "Optional: the switch's event entity (RFXCOM creates one event entity per switch).",
+            "wall_mode": "“Relayed”: presses go through Home Assistant (press = open / close, or stop if already moving). “Paired with the motor”: the motor reacts by itself, Volets HOLM only tracks the position."
+          },
+          "sections": {
+            "avance": {
+              "name": "Advanced settings",
+              "description": "Motor stop and end-stop re-sync.",
+              "data": {
+                "stop_mode": "How to stop the motor",
+                "stop_entity": "Stop entity",
+                "send_stop_at_ends": "Send a stop at end of travel",
+                "endstop_extra": "End-stop re-sync time",
+                "recal_full": "Full re-sync when already at end-stop"
+              },
+              "data_description": {
+                "stop_mode": "RF modules (AC, DI-O, Chacon…) stop when the same command is sent again.",
+                "stop_entity": "Only if stopping uses a dedicated script, button or switch.",
+                "send_stop_at_ends": "Sends the stop once the end-stop is reached (useful for modules that stay active).",
+                "endstop_extra": "Seconds added when travelling to an end-stop (fully open or closed) to absorb drift.",
+                "recal_full": "If the cover is already reported at the end-stop, a new command runs a full travel: handy when a previous radio command was missed."
+              }
+            }
+          }
+        },
+        "edit": {
+          "title": "Edit cover",
+          "data": {
+            "name": "Cover name",
+            "switch": "Motor control",
+            "inverted": "Inverted control",
+            "time_up": "Opening time",
+            "time_down": "Closing time",
+            "area_id": "Area",
+            "wall_event": "Wall switch or remote",
+            "wall_mode": "Switch behaviour"
+          },
+          "data_description": {
+            "name": "Display name, e.g. “Office shutter”.",
+            "switch": "The entity driving the motor (e.g. an RFXCOM switch): on = open, off = close.",
+            "inverted": "Tick if the cover closes when the control is turned on.",
+            "time_up": "Time for a full opening, closed to open. The calibration wizard can measure it for you.",
+            "time_down": "Time for a full closing, open to closed.",
+            "area_id": "Area of the device created for this cover.",
+            "wall_event": "Optional: the switch's event entity (RFXCOM creates one event entity per switch).",
+            "wall_mode": "“Relayed”: presses go through Home Assistant (press = open / close, or stop if already moving). “Paired with the motor”: the motor reacts by itself, Volets HOLM only tracks the position."
+          },
+          "sections": {
+            "avance": {
+              "name": "Advanced settings",
+              "description": "Motor stop and end-stop re-sync.",
+              "data": {
+                "stop_mode": "How to stop the motor",
+                "stop_entity": "Stop entity",
+                "send_stop_at_ends": "Send a stop at end of travel",
+                "endstop_extra": "End-stop re-sync time",
+                "recal_full": "Full re-sync when already at end-stop"
+              },
+              "data_description": {
+                "stop_mode": "RF modules (AC, DI-O, Chacon…) stop when the same command is sent again.",
+                "stop_entity": "Only if stopping uses a dedicated script, button or switch.",
+                "send_stop_at_ends": "Sends the stop once the end-stop is reached (useful for modules that stay active).",
+                "endstop_extra": "Seconds added when travelling to an end-stop (fully open or closed) to absorb drift.",
+                "recal_full": "If the cover is already reported at the end-stop, a new command runs a full travel: handy when a previous radio command was missed."
+              }
+            }
+          }
+        },
+        "reconfigure": {
+          "title": "What do you want to do?",
+          "menu_options": {
+            "edit": "Edit settings",
+            "calib": "Calibrate travel times (wizard)"
+          }
+        },
+        "calib": {
+          "title": "Calibration — 1/5",
+          "description": "The cover will first close completely. Stay near the cover (or watch it), then submit to start closing."
+        },
+        "calib_closed": {
+          "title": "Calibration — 2/5",
+          "description": "Wait until the cover is **fully closed**. Then submit: it starts opening and the timer starts."
+        },
+        "calib_up": {
+          "title": "Calibration — 3/5: opening",
+          "description": "The cover is opening… Submit **as soon as it reaches the top**."
+        },
+        "calib_top": {
+          "title": "Calibration — 4/5",
+          "description": "Opening measured: {up} s. Submit to start closing (the timer restarts)."
+        },
+        "calib_down": {
+          "title": "Calibration — 5/5: closing",
+          "description": "The cover is closing… Submit **as soon as it reaches the bottom**."
+        },
+        "calib_result": {
+          "title": "Measured times",
+          "description": "Previous values: {old_up} s opening, {old_down} s closing. Adjust if needed, then save.",
+          "data": {
+            "time_up": "Opening time",
+            "time_down": "Closing time"
+          }
+        }
+      },
+      "error": {
+        "name_required": "Give the cover a name.",
+        "stop_entity_required": "Pick the stop entity, or another stop method."
+      },
+      "abort": {
+        "reconfigure_successful": "Cover updated.",
+        "not_loaded": "The cover is not loaded: try again in a moment."
+      }
+    },
+    "liaison": {
+      "entry_type": "Wall switch",
+      "initiate_flow": {
+        "user": "Link a wall switch",
+        "reconfigure": "Edit link"
+      },
+      "step": {
+        "user": {
+          "title": "Link a switch to a cover",
+          "description": "For a cover not managed by Volets HOLM (Z-Wave, Zigbee…).",
+          "data": {
+            "name": "Name (optional)",
+            "event": "Wall switch",
+            "cover": "Controlled cover",
+            "stop_when_moving": "Press while moving = stop",
+            "inverted": "Swap up / down"
+          },
+          "data_description": {
+            "name": "Default: “switch → cover”.",
+            "event": "The switch's event entity (e.g. RFXCOM).",
+            "cover": "Any Home Assistant cover (Z-Wave, Zigbee, Volets HOLM…).",
+            "stop_when_moving": "A press in the direction of travel stops the cover.",
+            "inverted": "Tick if “on” should close."
+          }
+        },
+        "reconfigure": {
+          "title": "Edit link",
+          "data": {
+            "name": "Name (optional)",
+            "event": "Wall switch",
+            "cover": "Controlled cover",
+            "stop_when_moving": "Press while moving = stop",
+            "inverted": "Swap up / down"
+          },
+          "data_description": {
+            "name": "Default: “switch → cover”.",
+            "event": "The switch's event entity (e.g. RFXCOM).",
+            "cover": "Any Home Assistant cover (Z-Wave, Zigbee, Volets HOLM…).",
+            "stop_when_moving": "A press in the direction of travel stops the cover.",
+            "inverted": "Tick if “on” should close."
+          }
+        }
+      },
+      "abort": {
+        "reconfigure_successful": "Link updated."
+      }
+    }
+  },
+  "selector": {
+    "wall_mode": {
+      "options": {
+        "relay": "Relayed by Home Assistant",
+        "direct": "Paired with the motor (tracking only)"
+      }
+    },
+    "stop_mode": {
+      "options": {
+        "repeat": "Resend the last command (RF)",
+        "entity": "Call a stop entity",
+        "none": "No stop command"
+      }
+    }
+  },
+  "issues": {
+    "legacy_yaml": {
+      "title": "Old cover configuration still active",
+      "description": "{platform} covers are still loaded from configuration.yaml ({entities}). Remove the `cover: - platform: {platform}` section (and the related scripts and input_text if no longer needed), then restart Home Assistant, otherwise these covers will appear twice."
+    }
+  },
+  "services": {
+    "set_known_position": {
+      "name": "Set known position",
+      "description": "Corrects the known position without sending anything to the motor.",
+      "fields": {
+        "position": {
+          "name": "Position",
+          "description": "0 = closed, 100 = open."
+        }
+      }
+    },
+    "recalibrate": {
+      "name": "Re-sync",
+      "description": "Sends the cover to the nearest end-stop with a full travel, to restart from a known position."
+    },
+    "detect_legacy": {
+      "name": "Analyse existing setup",
+      "description": "Lists the Cover Time Based covers and wall switches Volets HOLM can import, without changing anything."
+    }
+  }
+}

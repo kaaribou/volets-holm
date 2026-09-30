@@ -1,0 +1,251 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Volets HOLM",
+        "description": "Vos volets temporisés (RFXCOM et autres) et vos interrupteurs muraux, réglables depuis l'interface.\n\nExistant détecté : **{volets}** volet(s) Cover Time Based et **{liaisons}** autre(s) liaison(s) d'interrupteur, gérés par **{automations}** automatisation(s).\n\n{details}",
+        "data": {
+          "import_legacy": "Reprendre l'existant",
+          "disable_automations": "Désactiver les automatisations d'interrupteurs remplacées"
+        },
+        "data_description": {
+          "import_legacy": "Les volets gardent leur entity_id, leur pièce, leurs alias vocaux et leurs labels : vos automatisations, groupes et tableaux de bord continuent de fonctionner. Retirez ensuite la section cover_rf_time_based de configuration.yaml puis redémarrez.",
+          "disable_automations": "Elles sont seulement désactivées, pas supprimées : vous pourrez les réactiver si besoin."
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Volets HOLM est déjà configuré.",
+      "single_instance_allowed": "Volets HOLM est déjà configuré."
+    }
+  },
+  "config_subentries": {
+    "volet": {
+      "entry_type": "Volet",
+      "initiate_flow": {
+        "user": "Ajouter un volet",
+        "reconfigure": "Modifier le volet"
+      },
+      "step": {
+        "user": {
+          "title": "Nouveau volet",
+          "description": "Un volet dont la position est calculée d'après son temps de course.",
+          "data": {
+            "name": "Nom du volet",
+            "switch": "Commande du moteur",
+            "inverted": "Commande inversée",
+            "time_up": "Temps de montée",
+            "time_down": "Temps de descente",
+            "area_id": "Pièce",
+            "wall_event": "Interrupteur mural ou télécommande",
+            "wall_mode": "Fonctionnement de l'interrupteur"
+          },
+          "data_description": {
+            "name": "Nom affiché, par exemple « Volet du bureau ».",
+            "switch": "L'entité qui pilote le moteur (un switch RFXCOM par exemple) : allumée = ouverture, éteinte = fermeture.",
+            "inverted": "À cocher si le volet se ferme quand on allume la commande.",
+            "time_up": "Durée d'une ouverture complète, de fermé à ouvert. L'assistant de calibrage peut la mesurer pour vous.",
+            "time_down": "Durée d'une fermeture complète, d'ouvert à fermé.",
+            "area_id": "Pièce de l'appareil créé pour ce volet.",
+            "wall_event": "Facultatif : l'entité « évènement » de l'interrupteur (RFXCOM crée une entité event par interrupteur).",
+            "wall_mode": "« Relayé » : l'appui passe par Home Assistant (appui = ouvrir / fermer, ou stop si le volet bouge déjà). « Appairé au moteur » : le moteur réagit seul, Volets HOLM suit simplement la position."
+          },
+          "sections": {
+            "avance": {
+              "name": "Réglages avancés",
+              "description": "Arrêt du moteur et recalage aux extrémités.",
+              "data": {
+                "stop_mode": "Comment arrêter le moteur",
+                "stop_entity": "Entité d'arrêt",
+                "send_stop_at_ends": "Envoyer un arrêt en fin de course",
+                "endstop_extra": "Temps de recalage aux extrémités",
+                "recal_full": "Recalage complet si déjà en butée"
+              },
+              "data_description": {
+                "stop_mode": "Les modules RF (AC, DI-O, Chacon…) s'arrêtent quand on renvoie la même commande.",
+                "stop_entity": "Uniquement si l'arrêt passe par un script, un bouton ou un interrupteur dédié.",
+                "send_stop_at_ends": "Envoie l'arrêt une fois la butée atteinte (utile pour les modules qui restent actifs).",
+                "endstop_extra": "Secondes ajoutées quand on va jusqu'en butée (tout ouvert ou tout fermé), pour rattraper une éventuelle dérive.",
+                "recal_full": "Si le volet est déjà annoncé en butée, un nouvel ordre relance une course complète : pratique quand un ordre radio précédent n'est pas passé."
+              }
+            }
+          }
+        },
+        "edit": {
+          "title": "Modifier le volet",
+          "data": {
+            "name": "Nom du volet",
+            "switch": "Commande du moteur",
+            "inverted": "Commande inversée",
+            "time_up": "Temps de montée",
+            "time_down": "Temps de descente",
+            "area_id": "Pièce",
+            "wall_event": "Interrupteur mural ou télécommande",
+            "wall_mode": "Fonctionnement de l'interrupteur"
+          },
+          "data_description": {
+            "name": "Nom affiché, par exemple « Volet du bureau ».",
+            "switch": "L'entité qui pilote le moteur (un switch RFXCOM par exemple) : allumée = ouverture, éteinte = fermeture.",
+            "inverted": "À cocher si le volet se ferme quand on allume la commande.",
+            "time_up": "Durée d'une ouverture complète, de fermé à ouvert. L'assistant de calibrage peut la mesurer pour vous.",
+            "time_down": "Durée d'une fermeture complète, d'ouvert à fermé.",
+            "area_id": "Pièce de l'appareil créé pour ce volet.",
+            "wall_event": "Facultatif : l'entité « évènement » de l'interrupteur (RFXCOM crée une entité event par interrupteur).",
+            "wall_mode": "« Relayé » : l'appui passe par Home Assistant (appui = ouvrir / fermer, ou stop si le volet bouge déjà). « Appairé au moteur » : le moteur réagit seul, Volets HOLM suit simplement la position."
+          },
+          "sections": {
+            "avance": {
+              "name": "Réglages avancés",
+              "description": "Arrêt du moteur et recalage aux extrémités.",
+              "data": {
+                "stop_mode": "Comment arrêter le moteur",
+                "stop_entity": "Entité d'arrêt",
+                "send_stop_at_ends": "Envoyer un arrêt en fin de course",
+                "endstop_extra": "Temps de recalage aux extrémités",
+                "recal_full": "Recalage complet si déjà en butée"
+              },
+              "data_description": {
+                "stop_mode": "Les modules RF (AC, DI-O, Chacon…) s'arrêtent quand on renvoie la même commande.",
+                "stop_entity": "Uniquement si l'arrêt passe par un script, un bouton ou un interrupteur dédié.",
+                "send_stop_at_ends": "Envoie l'arrêt une fois la butée atteinte (utile pour les modules qui restent actifs).",
+                "endstop_extra": "Secondes ajoutées quand on va jusqu'en butée (tout ouvert ou tout fermé), pour rattraper une éventuelle dérive.",
+                "recal_full": "Si le volet est déjà annoncé en butée, un nouvel ordre relance une course complète : pratique quand un ordre radio précédent n'est pas passé."
+              }
+            }
+          }
+        },
+        "reconfigure": {
+          "title": "Que voulez-vous faire ?",
+          "menu_options": {
+            "edit": "Modifier les réglages",
+            "calib": "Calibrer les temps de course (assistant)"
+          }
+        },
+        "calib": {
+          "title": "Calibrage — 1/5",
+          "description": "Le volet va d'abord se fermer entièrement. Restez à côté du volet (ou regardez-le), puis validez pour lancer la fermeture."
+        },
+        "calib_closed": {
+          "title": "Calibrage — 2/5",
+          "description": "Attendez que le volet soit **entièrement fermé**. Validez ensuite : il commencera aussitôt à monter et le chronomètre démarre."
+        },
+        "calib_up": {
+          "title": "Calibrage — 3/5 : montée",
+          "description": "Le volet monte… Validez **dès qu'il arrive tout en haut**."
+        },
+        "calib_top": {
+          "title": "Calibrage — 4/5",
+          "description": "Montée mesurée : {up} s. Validez pour lancer la descente (le chronomètre redémarre)."
+        },
+        "calib_down": {
+          "title": "Calibrage — 5/5 : descente",
+          "description": "Le volet descend… Validez **dès qu'il arrive tout en bas**."
+        },
+        "calib_result": {
+          "title": "Temps mesurés",
+          "description": "Anciennes valeurs : {old_up} s en montée, {old_down} s en descente. Ajustez si besoin puis enregistrez.",
+          "data": {
+            "time_up": "Temps de montée",
+            "time_down": "Temps de descente"
+          }
+        }
+      },
+      "error": {
+        "name_required": "Donnez un nom au volet.",
+        "stop_entity_required": "Choisissez l'entité d'arrêt, ou une autre méthode d'arrêt."
+      },
+      "abort": {
+        "reconfigure_successful": "Volet mis à jour.",
+        "not_loaded": "Le volet n'est pas chargé : réessayez dans un instant."
+      }
+    },
+    "liaison": {
+      "entry_type": "Interrupteur mural",
+      "initiate_flow": {
+        "user": "Relier un interrupteur mural",
+        "reconfigure": "Modifier la liaison"
+      },
+      "step": {
+        "user": {
+          "title": "Relier un interrupteur à un volet",
+          "description": "Pour un volet qui n'est pas géré par Volets HOLM (Z-Wave, Zigbee…).",
+          "data": {
+            "name": "Nom (facultatif)",
+            "event": "Interrupteur mural",
+            "cover": "Volet commandé",
+            "stop_when_moving": "Appui pendant le mouvement = stop",
+            "inverted": "Inverser haut / bas"
+          },
+          "data_description": {
+            "name": "Par défaut : « interrupteur → volet ».",
+            "event": "L'entité « évènement » de l'interrupteur (ex. RFXCOM).",
+            "cover": "N'importe quel volet de Home Assistant (Z-Wave, Zigbee, Volets HOLM…).",
+            "stop_when_moving": "Un appui dans le sens du mouvement arrête le volet.",
+            "inverted": "À cocher si « on » doit fermer."
+          }
+        },
+        "reconfigure": {
+          "title": "Modifier la liaison",
+          "data": {
+            "name": "Nom (facultatif)",
+            "event": "Interrupteur mural",
+            "cover": "Volet commandé",
+            "stop_when_moving": "Appui pendant le mouvement = stop",
+            "inverted": "Inverser haut / bas"
+          },
+          "data_description": {
+            "name": "Par défaut : « interrupteur → volet ».",
+            "event": "L'entité « évènement » de l'interrupteur (ex. RFXCOM).",
+            "cover": "N'importe quel volet de Home Assistant (Z-Wave, Zigbee, Volets HOLM…).",
+            "stop_when_moving": "Un appui dans le sens du mouvement arrête le volet.",
+            "inverted": "À cocher si « on » doit fermer."
+          }
+        }
+      },
+      "abort": {
+        "reconfigure_successful": "Liaison mise à jour."
+      }
+    }
+  },
+  "selector": {
+    "wall_mode": {
+      "options": {
+        "relay": "Relayé par Home Assistant",
+        "direct": "Appairé au moteur (suivi seulement)"
+      }
+    },
+    "stop_mode": {
+      "options": {
+        "repeat": "Renvoyer la dernière commande (RF)",
+        "entity": "Appeler une entité d'arrêt",
+        "none": "Pas de commande d'arrêt"
+      }
+    }
+  },
+  "issues": {
+    "legacy_yaml": {
+      "title": "Ancienne configuration des volets encore active",
+      "description": "Des volets {platform} sont encore chargés depuis configuration.yaml ({entities}). Retirez la section `cover: - platform: {platform}` (ainsi que les scripts et input_text associés si vous n'en avez plus besoin) puis redémarrez Home Assistant, sinon ces volets apparaîtront en double."
+    }
+  },
+  "services": {
+    "set_known_position": {
+      "name": "Indiquer la position réelle",
+      "description": "Corrige la position connue du volet sans rien envoyer au moteur.",
+      "fields": {
+        "position": {
+          "name": "Position",
+          "description": "0 = fermé, 100 = ouvert."
+        }
+      }
+    },
+    "recalibrate": {
+      "name": "Recaler",
+      "description": "Envoie le volet en butée (du côté le plus proche) avec une course complète, pour repartir d'une position sûre."
+    },
+    "detect_legacy": {
+      "name": "Analyser l'existant",
+      "description": "Liste les volets Cover Time Based et les interrupteurs muraux que Volets HOLM peut reprendre, sans rien modifier."
+    }
+  }
+}

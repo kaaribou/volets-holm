@@ -1,0 +1,21 @@
+{
+  "domain": "volets_holm",
+  "name": "Volets HOLM",
+  "after_dependencies": [
+    "automation",
+    "script",
+    "rfxtrx"
+  ],
+  "codeowners": [
+    "@kaaribou"
+  ],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/kaaribou/volets-holm",
+  "integration_type": "hub",
+  "iot_class": "calculated",
+  "issue_tracker": "https://github.com/kaaribou/volets-holm/issues",
+  "requirements": [],
+  "single_config_entry": true,
+  "version": "1.0.0"
+}
