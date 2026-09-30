@@ -233,10 +233,9 @@ class VoletSubentryFlow(ConfigSubentryFlow):
 
     async def async_step_calib_closed(self, user_input: dict[str, Any] | None = None) -> SubentryFlowResult:
         if user_input is not None:
-            ent = self._entity()
-            if self._ends():
-                await ent.async_raw_stop()
-            await ent.async_raw("open")
+            # pas d'arrêt ici : un « stop » suivi aussitôt de « monte » n'était pas
+            # compris par les modules RF ; l'ordre de montée suffit.
+            await self._entity().async_raw("open")
             self._t0 = monotonic()
             return await self.async_step_calib_up()
         return self.async_show_form(step_id="calib_closed", data_schema=vol.Schema({}))

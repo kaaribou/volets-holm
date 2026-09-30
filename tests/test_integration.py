@@ -24,7 +24,8 @@ class Clock:
 def clock(freezer):
     c = Clock()
     c.freezer = freezer
-    with patch("custom_components.volets_holm.cover.monotonic", c):
+    # temps figé : pas d'attente réelle entre deux trames radio
+    with patch("custom_components.volets_holm.cover.monotonic", c), patch("custom_components.volets_holm.cover.RF_GAP", 0):
         yield c
 
 
@@ -205,7 +206,7 @@ async def test_calibrage(hass: HomeAssistant, clock):
         res = await hass.config_entries.subentries.async_configure(res["flow_id"], {})
         assert len(off) == 1 and res["step_id"] == "calib_closed"
         res = await hass.config_entries.subentries.async_configure(res["flow_id"], {})
-        assert len(on) == 1 and res["step_id"] == "calib_up"
+        assert len(on) == 1 and len(off) == 1 and res["step_id"] == "calib_up"  # pas de stop avant la montée
         clock.t += 21.3
         res = await hass.config_entries.subentries.async_configure(res["flow_id"], {})
         assert res["step_id"] == "calib_top"
@@ -252,3 +253,22 @@ async def test_detection_commande_inversee(hass: HomeAssistant):
     assert await async_setup_component(hass, "script", {"script": {
         "ouvre_x": {"sequence": [{"action": "switch.turn_off", "target": {"entity_id": "switch.volet_x"}}]}}})
     assert migrate._switch_of_script(hass, "script.ouvre_x") == ("switch.volet_x", "turn_off")
+
+
+async def test_ecart_minimal_entre_deux_trames(hass: HomeAssistant):
+    hass.states.async_set("switch.moteur", "off")
+    stamps = []
+
+    async def _rec(call):
+        stamps.append((call.service, hass.loop.time()))
+
+    hass.services.async_register("switch", "turn_on", _rec)
+    hass.services.async_register("switch", "turn_off", _rec)
+    await setup_entry(hass, [ConfigSubentryData(subentry_type=SUB_VOLET, title="Volet bureau", data=VOLET, unique_id=None)])
+    eid = "cover.volet_bureau"
+    await hass.services.async_call(DOMAIN, "set_known_position", {"entity_id": eid, "position": 50}, blocking=True)
+    await hass.services.async_call("cover", "close_cover", {"entity_id": eid}, blocking=True)
+    await hass.services.async_call("cover", "stop_cover", {"entity_id": eid}, blocking=True)
+    await hass.services.async_call("cover", "open_cover", {"entity_id": eid}, blocking=True)
+    assert [s for s, _ in stamps] == ["turn_off", "turn_off", "turn_on"]
+    assert all(b - a >= 1.15 for (_, a), (_, b) in zip(stamps, stamps[1:]))

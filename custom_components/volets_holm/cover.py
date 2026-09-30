@@ -45,6 +45,7 @@ from .const import (
     STOP_ENTITY,
     STOP_REPEAT,
     SUB_VOLET,
+    RF_GAP,
     TICK_SECONDS,
     VERSION,
     VOLET_DEFAULTS,
@@ -103,6 +104,7 @@ class VoletCover(CoverEntity, RestoreEntity):
         self._end_unsub = None
         self._tick_unsub = None
         self._last_cmd: str | None = None
+        self._last_tx = float("-inf")
         self._track_only = False
         self._run_target: float | None = None
 
@@ -198,6 +200,15 @@ class VoletCover(CoverEntity, RestoreEntity):
                 return
             direction = (UP if target == 100 else DOWN) if at_end else (UP if target > cur else DOWN)
             same_way = self.travel.moving and self.travel.direction == direction
+            cmd = OPEN if direction == UP else CLOSE
+            if send and not same_way:
+                self._track_only = False
+                await self._cmd(cmd)  # peut attendre l'écart radio : on compte à partir de l'envoi réel
+                now = monotonic()
+                cur = self.travel.position(now)
+            elif not send:
+                self._track_only = True
+                self._last_cmd = cmd
             if at_end and abs(cur - target) < 0.5 and not self.travel.moving:
                 # déjà en butée : on relance quand même pour se recaler
                 self.travel.start(target, now, direction)
@@ -206,16 +217,8 @@ class VoletCover(CoverEntity, RestoreEntity):
             else:
                 if force_full:
                     self.travel.set_position(0 if direction == UP else 100)
-                    now = monotonic()
                 total = self.travel.start(target, now, direction) + (self.cfg[CONF_ENDSTOP_EXTRA] if at_end else 0.0)
             self._run_target = target
-            cmd = OPEN if direction == UP else CLOSE
-            if send and not same_way:
-                self._track_only = False
-                await self._cmd(cmd)
-            elif not send:
-                self._track_only = True
-                self._last_cmd = cmd
             self._schedule_end(total)
             self.async_write_ha_state()
 
@@ -270,8 +273,13 @@ class VoletCover(CoverEntity, RestoreEntity):
         await self._switch(on)
 
     async def _switch(self, on: bool) -> None:
+        # Deux trames radio trop rapprochées : le module ne voit que la première.
+        wait = self._last_tx + RF_GAP - self.hass.loop.time()
+        if wait > 0:
+            await asyncio.sleep(wait)
         sw = self.cfg[CONF_SWITCH]
         await self._call(sw.split(".", 1)[0], "turn_on" if on else "turn_off", sw)
+        self._last_tx = self.hass.loop.time()
 
     async def _send_stop(self) -> None:
         mode = self.cfg[CONF_STOP_MODE]

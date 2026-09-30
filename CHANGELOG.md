@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1
+
+- **Assistant de calibrage** : la montée ne démarrait pas à l'étape 2 (un « stop » envoyé juste avant l'ordre de montée l'empêchait d'être pris en compte par les modules RF). L'ordre de montée est maintenant envoyé seul.
+- **Écart minimal de 1,2 s entre deux commandes radio** vers un même moteur, pour qu'aucune ne soit perdue (arrêt suivi d'un nouvel ordre, par exemple). La position est calculée à partir de l'envoi réel.
+
 ## 1.0.0
 
 Première version.

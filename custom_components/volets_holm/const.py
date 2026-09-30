@@ -5,7 +5,7 @@ from typing import Final
 
 DOMAIN: Final = "volets_holm"
 NAME: Final = "Volets HOLM"
-VERSION: Final = "1.0.0"
+VERSION: Final = "1.0.1"
 
 SUB_VOLET: Final = "volet"
 SUB_LIAISON: Final = "liaison"
@@ -57,4 +57,5 @@ EV_OPEN: Final = ("on", "group_on", "open", "up")
 EV_CLOSE: Final = ("off", "group_off", "close", "down")
 
 TICK_SECONDS: Final = 1.0
+RF_GAP: Final = 1.2  # écart minimal (s) entre deux commandes radio vers le même moteur
 LEGACY_PLATFORM: Final = "cover_rf_time_based"
