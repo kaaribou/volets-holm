@@ -23,6 +23,8 @@ Beaucoup de volets radio ne disent jamais où ils en sont : on leur envoie « mo
 - ↔️ **Commande inversée** pour les moteurs câblés à l'envers.
 - 🔁 **Reprise de Cover Time Based** en un clic, en gardant les entity_id, pièces, alias vocaux et labels.
 
+![Volets HOLM dans Home Assistant](docs/images/volets-holm-apercu.jpg)
+
 ---
 
 ## Sommaire
@@ -58,9 +60,13 @@ Beaucoup de volets radio ne disent jamais où ils en sont : on leur envoie « mo
 3. Sur la carte de l'intégration : **Ajouter un volet** pour chaque volet, **Relier un interrupteur mural** pour un volet géré par une autre intégration.
 4. Pour modifier ou calibrer un volet : les ⋮ en face du volet → **Reconfigurer**.
 
+![La page de l'intégration : volets et interrupteurs muraux](docs/images/volets-holm-integration.jpg)
+
 Chaque volet devient un **appareil** avec son entité `cover`, utilisable partout : cartes (par exemple [HOLM Covers Card](https://github.com/kaaribou/holm-covers-card)), groupes, automatisations, assistants vocaux.
 
 ## Réglages d'un volet
+
+![Les réglages d'un volet](docs/images/volets-holm-reglages.jpg)
 
 | Réglage | Rôle |
 |---|---|
@@ -146,4 +152,8 @@ L'intégration vous plaît ? Vous pouvez m'offrir une bière 🍺
 - Code : licence **MIT** — © kaaribou. Voir le [CHANGELOG](CHANGELOG.md).
 - Calcul de position inspiré de [Cover Time Based](https://github.com/nagyrobi/home-assistant-custom-components-cover-rf-time-based) et du TravelCalculator de [XKNX](https://github.com/XKNX/xknx) ; réécrit pour cette intégration.
 
-Fait partie de la collection **HOLM** : [Climat HOLM](https://github.com/kaaribou/climat-holm) · [Carburant HOLM](https://github.com/kaaribou/carburant-holm) · [HOLM Climate Card](https://github.com/kaaribou/climate-card-holm) · [HOLM Covers Card](https://github.com/kaaribou/holm-covers-card) · [HOLM Navbar Card](https://github.com/kaaribou/holm-navbar-card) · [HOLM Music Card](https://github.com/kaaribou/holm-music-card) · [HOLM Sentinel Card](https://github.com/kaaribou/holm-sentinel-card) · [HOLM Power Flow Card](https://github.com/kaaribou/holm-power-flow-card) · [HOLM Energy Cards](https://github.com/kaaribou/holm-energy-cards) · [HOLM Radiator Card](https://github.com/kaaribou/holm-radiator-card) · [HOLM Floor Card](https://github.com/kaaribou/holm-floor-card) · [HOLM Security Card](https://github.com/kaaribou/holm-security-card) · [HOLM Smoke Card](https://github.com/kaaribou/holm-smoke-card) · [HOLM BG Card](https://github.com/kaaribou/holm-bg-card).
+Fait partie de **HOLM — Home Orchestration & Living Management** : la gestion et l'orchestration intelligente de la maison.
+
+Les autres projets : [Climat HOLM](https://github.com/kaaribou/climat-holm) · [Carburant HOLM](https://github.com/kaaribou/carburant-holm) · [Commandes à la maison HOLM](https://github.com/kaaribou/commandes-holm) · [HOLM LaMetric](https://github.com/kaaribou/lametric-holm) · [HOLM My Menu](https://github.com/kaaribou/holm-mymenu) · [HOLM Lektrico](https://github.com/kaaribou/lektrico-holm) · [HOLM Covers Card](https://github.com/kaaribou/holm-covers-card) · [HOLM Navbar Card](https://github.com/kaaribou/holm-navbar-card) · [HOLM Climate Card](https://github.com/kaaribou/climate-card-holm) · [HOLM Music Card](https://github.com/kaaribou/holm-music-card) · [HOLM Sentinel Card](https://github.com/kaaribou/holm-sentinel-card) · [HOLM Security Card](https://github.com/kaaribou/holm-security-card) · [HOLM Recordings Card](https://github.com/kaaribou/holm-recordings-card) · [HOLM Power Flow Card](https://github.com/kaaribou/holm-power-flow-card) · [HOLM Energy Cards](https://github.com/kaaribou/holm-energy-cards) · [HOLM Radiator Card](https://github.com/kaaribou/holm-radiator-card) · [HOLM Floor Card](https://github.com/kaaribou/holm-floor-card) · [HOLM Ecojoko Card](https://github.com/kaaribou/holm-ecojoko-card) · [HOLM Smoke Card](https://github.com/kaaribou/holm-smoke-card) · [HOLM BG Card](https://github.com/kaaribou/holm-bg-card).
+
+Article de présentation : [homelive.fr](https://homelive.fr/volets-holm-vos-volets-radio-savent-enfin-ou-ils-en-sont/)
