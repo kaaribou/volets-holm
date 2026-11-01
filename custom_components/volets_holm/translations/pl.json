@@ -1,0 +1,251 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Volets HOLM",
+        "description": "Twoje rolety sterowane czasem (RFXCOM i inne) oraz włączniki ścienne, konfigurowane z interfejsu.\n\nWykryto: **{volets}** rolet(y) Cover Time Based i **{liaisons}** innych powiązań włączników, obsługiwanych przez **{automations}** automatyzacji.\n\n{details}",
+        "data": {
+          "import_legacy": "Importuj istniejącą konfigurację",
+          "disable_automations": "Wyłącz zastąpione automatyzacje włączników"
+        },
+        "data_description": {
+          "import_legacy": "Rolety zachowują entity_id, obszar, aliasy głosowe i etykiety: automatyzacje, grupy i panele działają dalej. Następnie usuń sekcję cover_rf_time_based z configuration.yaml i uruchom ponownie.",
+          "disable_automations": "Są tylko wyłączane, nie usuwane: w razie potrzeby możesz je włączyć ponownie."
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Volets HOLM jest już skonfigurowany.",
+      "single_instance_allowed": "Volets HOLM jest już skonfigurowany."
+    }
+  },
+  "config_subentries": {
+    "volet": {
+      "entry_type": "Roleta",
+      "initiate_flow": {
+        "user": "Dodaj roletę",
+        "reconfigure": "Edytuj roletę"
+      },
+      "step": {
+        "user": {
+          "title": "Nowa roleta",
+          "description": "Roleta, której pozycja jest obliczana z czasu przejazdu.",
+          "data": {
+            "name": "Nazwa rolety",
+            "switch": "Sterowanie silnikiem",
+            "inverted": "Odwrócone sterowanie",
+            "time_up": "Czas otwierania",
+            "time_down": "Czas zamykania",
+            "area_id": "Obszar",
+            "wall_event": "Włącznik ścienny lub pilot",
+            "wall_mode": "Zachowanie włącznika"
+          },
+          "data_description": {
+            "name": "Wyświetlana nazwa, np. „Roleta biuro”.",
+            "switch": "Encja sterująca silnikiem (np. przełącznik RFXCOM): on = otwórz, off = zamknij.",
+            "inverted": "Zaznacz, jeśli roleta zamyka się po włączeniu sterowania.",
+            "time_up": "Czas pełnego otwarcia, od zamkniętej do otwartej. Kreator kalibracji może go zmierzyć.",
+            "time_down": "Czas pełnego zamknięcia, od otwartej do zamkniętej.",
+            "area_id": "Obszar urządzenia utworzonego dla tej rolety.",
+            "wall_event": "Opcjonalnie: encja zdarzenia włącznika (RFXCOM tworzy jedną na każdy włącznik).",
+            "wall_mode": "„Przekazywany”: naciśnięcia przechodzą przez Home Assistant (naciśnięcie = otwórz / zamknij lub stop, jeśli już jedzie). „Sparowany z silnikiem”: silnik reaguje sam, Volets HOLM tylko śledzi pozycję."
+          },
+          "sections": {
+            "avance": {
+              "name": "Ustawienia zaawansowane",
+              "description": "Zatrzymanie silnika i ponowna synchronizacja w krańcówkach.",
+              "data": {
+                "stop_mode": "Jak zatrzymać silnik",
+                "stop_entity": "Encja zatrzymania",
+                "send_stop_at_ends": "Wyślij stop na końcu przejazdu",
+                "endstop_extra": "Czas synchronizacji w krańcówce",
+                "recal_full": "Pełna synchronizacja, gdy już w krańcówce"
+              },
+              "data_description": {
+                "stop_mode": "Moduły RF (AC, DI-O, Chacon…) zatrzymują się po ponownym wysłaniu tego samego polecenia.",
+                "stop_entity": "Tylko jeśli zatrzymanie używa osobnego skryptu, przycisku lub przełącznika.",
+                "send_stop_at_ends": "Wysyła stop po osiągnięciu krańcówki (przydatne dla modułów, które pozostają aktywne).",
+                "endstop_extra": "Sekundy dodawane przy jeździe do krańcówki (całkiem otwarta lub zamknięta), by zniwelować dryf.",
+                "recal_full": "Jeśli roleta jest już zgłaszana w krańcówce, nowe polecenie wykona pełny przejazd: przydatne, gdy poprzednie polecenie radiowe nie dotarło."
+              }
+            }
+          }
+        },
+        "edit": {
+          "title": "Edytuj roletę",
+          "data": {
+            "name": "Nazwa rolety",
+            "switch": "Sterowanie silnikiem",
+            "inverted": "Odwrócone sterowanie",
+            "time_up": "Czas otwierania",
+            "time_down": "Czas zamykania",
+            "area_id": "Obszar",
+            "wall_event": "Włącznik ścienny lub pilot",
+            "wall_mode": "Zachowanie włącznika"
+          },
+          "data_description": {
+            "name": "Wyświetlana nazwa, np. „Roleta biuro”.",
+            "switch": "Encja sterująca silnikiem (np. przełącznik RFXCOM): on = otwórz, off = zamknij.",
+            "inverted": "Zaznacz, jeśli roleta zamyka się po włączeniu sterowania.",
+            "time_up": "Czas pełnego otwarcia, od zamkniętej do otwartej. Kreator kalibracji może go zmierzyć.",
+            "time_down": "Czas pełnego zamknięcia, od otwartej do zamkniętej.",
+            "area_id": "Obszar urządzenia utworzonego dla tej rolety.",
+            "wall_event": "Opcjonalnie: encja zdarzenia włącznika (RFXCOM tworzy jedną na każdy włącznik).",
+            "wall_mode": "„Przekazywany”: naciśnięcia przechodzą przez Home Assistant (naciśnięcie = otwórz / zamknij lub stop, jeśli już jedzie). „Sparowany z silnikiem”: silnik reaguje sam, Volets HOLM tylko śledzi pozycję."
+          },
+          "sections": {
+            "avance": {
+              "name": "Ustawienia zaawansowane",
+              "description": "Zatrzymanie silnika i ponowna synchronizacja w krańcówkach.",
+              "data": {
+                "stop_mode": "Jak zatrzymać silnik",
+                "stop_entity": "Encja zatrzymania",
+                "send_stop_at_ends": "Wyślij stop na końcu przejazdu",
+                "endstop_extra": "Czas synchronizacji w krańcówce",
+                "recal_full": "Pełna synchronizacja, gdy już w krańcówce"
+              },
+              "data_description": {
+                "stop_mode": "Moduły RF (AC, DI-O, Chacon…) zatrzymują się po ponownym wysłaniu tego samego polecenia.",
+                "stop_entity": "Tylko jeśli zatrzymanie używa osobnego skryptu, przycisku lub przełącznika.",
+                "send_stop_at_ends": "Wysyła stop po osiągnięciu krańcówki (przydatne dla modułów, które pozostają aktywne).",
+                "endstop_extra": "Sekundy dodawane przy jeździe do krańcówki (całkiem otwarta lub zamknięta), by zniwelować dryf.",
+                "recal_full": "Jeśli roleta jest już zgłaszana w krańcówce, nowe polecenie wykona pełny przejazd: przydatne, gdy poprzednie polecenie radiowe nie dotarło."
+              }
+            }
+          }
+        },
+        "reconfigure": {
+          "title": "Co chcesz zrobić?",
+          "menu_options": {
+            "edit": "Edytuj ustawienia",
+            "calib": "Kalibruj czasy przejazdu (kreator)"
+          }
+        },
+        "calib": {
+          "title": "Kalibracja — 1/5",
+          "description": "Roleta najpierw całkowicie się zamknie. Zostań w pobliżu (lub obserwuj ją), a potem zatwierdź, aby rozpocząć zamykanie."
+        },
+        "calib_closed": {
+          "title": "Kalibracja — 2/5",
+          "description": "Poczekaj, aż roleta będzie **całkowicie zamknięta**. Potem zatwierdź: zacznie się otwierać i ruszy pomiar czasu."
+        },
+        "calib_up": {
+          "title": "Kalibracja — 3/5: otwieranie",
+          "description": "Roleta się otwiera… Zatwierdź, **gdy tylko dojdzie do góry**."
+        },
+        "calib_top": {
+          "title": "Kalibracja — 4/5",
+          "description": "Zmierzone otwieranie: {up} s. Zatwierdź, aby rozpocząć zamykanie (pomiar czasu rusza od nowa)."
+        },
+        "calib_down": {
+          "title": "Kalibracja — 5/5: zamykanie",
+          "description": "Roleta się zamyka… Zatwierdź, **gdy tylko dojdzie do dołu**."
+        },
+        "calib_result": {
+          "title": "Zmierzone czasy",
+          "description": "Poprzednie wartości: {old_up} s otwierania, {old_down} s zamykania. W razie potrzeby popraw i zapisz.",
+          "data": {
+            "time_up": "Czas otwierania",
+            "time_down": "Czas zamykania"
+          }
+        }
+      },
+      "error": {
+        "name_required": "Nadaj rolecie nazwę.",
+        "stop_entity_required": "Wybierz encję zatrzymania lub inną metodę zatrzymania."
+      },
+      "abort": {
+        "reconfigure_successful": "Roleta zaktualizowana.",
+        "not_loaded": "Roleta nie jest załadowana: spróbuj ponownie za chwilę."
+      }
+    },
+    "liaison": {
+      "entry_type": "Włącznik ścienny",
+      "initiate_flow": {
+        "user": "Powiąż włącznik ścienny",
+        "reconfigure": "Edytuj powiązanie"
+      },
+      "step": {
+        "user": {
+          "title": "Powiąż włącznik z roletą",
+          "description": "Dla rolety niezarządzanej przez Volets HOLM (Z-Wave, Zigbee…).",
+          "data": {
+            "name": "Nazwa (opcjonalnie)",
+            "event": "Włącznik ścienny",
+            "cover": "Sterowana roleta",
+            "stop_when_moving": "Naciśnięcie w ruchu = stop",
+            "inverted": "Zamień góra / dół"
+          },
+          "data_description": {
+            "name": "Domyślnie: „włącznik → roleta”.",
+            "event": "Encja zdarzenia włącznika (np. RFXCOM).",
+            "cover": "Dowolna roleta Home Assistant (Z-Wave, Zigbee, Volets HOLM…).",
+            "stop_when_moving": "Naciśnięcie w kierunku ruchu zatrzymuje roletę.",
+            "inverted": "Zaznacz, jeśli „on” ma zamykać."
+          }
+        },
+        "reconfigure": {
+          "title": "Edytuj powiązanie",
+          "data": {
+            "name": "Nazwa (opcjonalnie)",
+            "event": "Włącznik ścienny",
+            "cover": "Sterowana roleta",
+            "stop_when_moving": "Naciśnięcie w ruchu = stop",
+            "inverted": "Zamień góra / dół"
+          },
+          "data_description": {
+            "name": "Domyślnie: „włącznik → roleta”.",
+            "event": "Encja zdarzenia włącznika (np. RFXCOM).",
+            "cover": "Dowolna roleta Home Assistant (Z-Wave, Zigbee, Volets HOLM…).",
+            "stop_when_moving": "Naciśnięcie w kierunku ruchu zatrzymuje roletę.",
+            "inverted": "Zaznacz, jeśli „on” ma zamykać."
+          }
+        }
+      },
+      "abort": {
+        "reconfigure_successful": "Powiązanie zaktualizowane."
+      }
+    }
+  },
+  "selector": {
+    "wall_mode": {
+      "options": {
+        "relay": "Przekazywany przez Home Assistant",
+        "direct": "Sparowany z silnikiem (tylko śledzenie)"
+      }
+    },
+    "stop_mode": {
+      "options": {
+        "repeat": "Wyślij ponownie ostatnie polecenie (RF)",
+        "entity": "Wywołaj encję zatrzymania",
+        "none": "Brak polecenia zatrzymania"
+      }
+    }
+  },
+  "issues": {
+    "legacy_yaml": {
+      "title": "Stara konfiguracja rolet nadal aktywna",
+      "description": "Rolety {platform} są nadal ładowane z configuration.yaml ({entities}). Usuń sekcję `cover: - platform: {platform}` (oraz powiązane skrypty i input_text, jeśli nie są już potrzebne) i uruchom ponownie Home Assistant, inaczej te rolety pojawią się podwójnie."
+    }
+  },
+  "services": {
+    "set_known_position": {
+      "name": "Ustaw znaną pozycję",
+      "description": "Koryguje znaną pozycję bez wysyłania czegokolwiek do silnika.",
+      "fields": {
+        "position": {
+          "name": "Pozycja",
+          "description": "0 = zamknięta, 100 = otwarta."
+        }
+      }
+    },
+    "recalibrate": {
+      "name": "Synchronizuj ponownie",
+      "description": "Wysyła roletę pełnym przejazdem do najbliższej krańcówki, aby zacząć od znanej pozycji."
+    },
+    "detect_legacy": {
+      "name": "Przeanalizuj istniejącą konfigurację",
+      "description": "Wyświetla rolety Cover Time Based i włączniki, które Volets HOLM może zaimportować, niczego nie zmieniając."
+    }
+  }
+}

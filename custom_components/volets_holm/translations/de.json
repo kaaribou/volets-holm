@@ -1,0 +1,251 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Volets HOLM",
+        "description": "Ihre zeitgesteuerten Rollläden (RFXCOM und andere) und Wandschalter, über die Oberfläche eingerichtet.\n\nErkannt: **{volets}** Cover-Time-Based-Rollladen und **{liaisons}** weitere Wandschalter-Verknüpfung(en), gesteuert von **{automations}** Automatisierung(en).\n\n{details}",
+        "data": {
+          "import_legacy": "Bestehende Einrichtung importieren",
+          "disable_automations": "Ersetzte Wandschalter-Automatisierungen deaktivieren"
+        },
+        "data_description": {
+          "import_legacy": "Die Rollläden behalten ihre entity_id, ihren Bereich, ihre Sprachaliase und Labels: Ihre Automatisierungen, Gruppen und Dashboards funktionieren weiter. Entfernen Sie danach den Abschnitt cover_rf_time_based aus configuration.yaml und starten Sie neu.",
+          "disable_automations": "Sie werden nur deaktiviert, nicht gelöscht: Sie können sie bei Bedarf wieder aktivieren."
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Volets HOLM ist bereits eingerichtet.",
+      "single_instance_allowed": "Volets HOLM ist bereits eingerichtet."
+    }
+  },
+  "config_subentries": {
+    "volet": {
+      "entry_type": "Rollladen",
+      "initiate_flow": {
+        "user": "Rollladen hinzufügen",
+        "reconfigure": "Rollladen bearbeiten"
+      },
+      "step": {
+        "user": {
+          "title": "Neuer Rollladen",
+          "description": "Ein Rollladen, dessen Position aus seiner Laufzeit berechnet wird.",
+          "data": {
+            "name": "Name des Rollladens",
+            "switch": "Motorsteuerung",
+            "inverted": "Invertierte Steuerung",
+            "time_up": "Öffnungszeit",
+            "time_down": "Schließzeit",
+            "area_id": "Bereich",
+            "wall_event": "Wandschalter oder Fernbedienung",
+            "wall_mode": "Verhalten des Schalters"
+          },
+          "data_description": {
+            "name": "Anzeigename, z. B. „Rollladen Büro“.",
+            "switch": "Die Entität, die den Motor steuert (z. B. ein RFXCOM-Schalter): an = öffnen, aus = schließen.",
+            "inverted": "Ankreuzen, wenn der Rollladen beim Einschalten schließt.",
+            "time_up": "Zeit für ein vollständiges Öffnen, von zu bis offen. Der Kalibrierungsassistent kann sie für Sie messen.",
+            "time_down": "Zeit für ein vollständiges Schließen, von offen bis zu.",
+            "area_id": "Bereich des für diesen Rollladen erstellten Geräts.",
+            "wall_event": "Optional: die Ereignis-Entität des Schalters (RFXCOM erstellt eine Ereignis-Entität pro Schalter).",
+            "wall_mode": "„Weitergeleitet“: Tastendrücke laufen über Home Assistant (Drücken = öffnen / schließen, oder Stopp, wenn er schon fährt). „Mit dem Motor gekoppelt“: Der Motor reagiert selbst, Volets HOLM verfolgt nur die Position."
+          },
+          "sections": {
+            "avance": {
+              "name": "Erweiterte Einstellungen",
+              "description": "Motorstopp und Endlagen-Neusynchronisierung.",
+              "data": {
+                "stop_mode": "Wie der Motor gestoppt wird",
+                "stop_entity": "Stopp-Entität",
+                "send_stop_at_ends": "Am Ende der Fahrt einen Stopp senden",
+                "endstop_extra": "Nachlaufzeit an der Endlage",
+                "recal_full": "Vollständige Neusynchronisierung, wenn bereits in Endlage"
+              },
+              "data_description": {
+                "stop_mode": "Funkmodule (AC, DI-O, Chacon…) stoppen, wenn derselbe Befehl erneut gesendet wird.",
+                "stop_entity": "Nur wenn der Stopp ein eigenes Skript, eine Taste oder einen Schalter nutzt.",
+                "send_stop_at_ends": "Sendet den Stopp, sobald die Endlage erreicht ist (nützlich für Module, die aktiv bleiben).",
+                "endstop_extra": "Sekunden, die bei Fahrt in eine Endlage (ganz offen oder zu) hinzugefügt werden, um Abweichungen auszugleichen.",
+                "recal_full": "Wird der Rollladen bereits in der Endlage gemeldet, führt ein neuer Befehl eine volle Fahrt aus: praktisch, wenn ein früherer Funkbefehl verloren ging."
+              }
+            }
+          }
+        },
+        "edit": {
+          "title": "Rollladen bearbeiten",
+          "data": {
+            "name": "Name des Rollladens",
+            "switch": "Motorsteuerung",
+            "inverted": "Invertierte Steuerung",
+            "time_up": "Öffnungszeit",
+            "time_down": "Schließzeit",
+            "area_id": "Bereich",
+            "wall_event": "Wandschalter oder Fernbedienung",
+            "wall_mode": "Verhalten des Schalters"
+          },
+          "data_description": {
+            "name": "Anzeigename, z. B. „Rollladen Büro“.",
+            "switch": "Die Entität, die den Motor steuert (z. B. ein RFXCOM-Schalter): an = öffnen, aus = schließen.",
+            "inverted": "Ankreuzen, wenn der Rollladen beim Einschalten schließt.",
+            "time_up": "Zeit für ein vollständiges Öffnen, von zu bis offen. Der Kalibrierungsassistent kann sie für Sie messen.",
+            "time_down": "Zeit für ein vollständiges Schließen, von offen bis zu.",
+            "area_id": "Bereich des für diesen Rollladen erstellten Geräts.",
+            "wall_event": "Optional: die Ereignis-Entität des Schalters (RFXCOM erstellt eine Ereignis-Entität pro Schalter).",
+            "wall_mode": "„Weitergeleitet“: Tastendrücke laufen über Home Assistant (Drücken = öffnen / schließen, oder Stopp, wenn er schon fährt). „Mit dem Motor gekoppelt“: Der Motor reagiert selbst, Volets HOLM verfolgt nur die Position."
+          },
+          "sections": {
+            "avance": {
+              "name": "Erweiterte Einstellungen",
+              "description": "Motorstopp und Endlagen-Neusynchronisierung.",
+              "data": {
+                "stop_mode": "Wie der Motor gestoppt wird",
+                "stop_entity": "Stopp-Entität",
+                "send_stop_at_ends": "Am Ende der Fahrt einen Stopp senden",
+                "endstop_extra": "Nachlaufzeit an der Endlage",
+                "recal_full": "Vollständige Neusynchronisierung, wenn bereits in Endlage"
+              },
+              "data_description": {
+                "stop_mode": "Funkmodule (AC, DI-O, Chacon…) stoppen, wenn derselbe Befehl erneut gesendet wird.",
+                "stop_entity": "Nur wenn der Stopp ein eigenes Skript, eine Taste oder einen Schalter nutzt.",
+                "send_stop_at_ends": "Sendet den Stopp, sobald die Endlage erreicht ist (nützlich für Module, die aktiv bleiben).",
+                "endstop_extra": "Sekunden, die bei Fahrt in eine Endlage (ganz offen oder zu) hinzugefügt werden, um Abweichungen auszugleichen.",
+                "recal_full": "Wird der Rollladen bereits in der Endlage gemeldet, führt ein neuer Befehl eine volle Fahrt aus: praktisch, wenn ein früherer Funkbefehl verloren ging."
+              }
+            }
+          }
+        },
+        "reconfigure": {
+          "title": "Was möchten Sie tun?",
+          "menu_options": {
+            "edit": "Einstellungen bearbeiten",
+            "calib": "Laufzeiten kalibrieren (Assistent)"
+          }
+        },
+        "calib": {
+          "title": "Kalibrierung — 1/5",
+          "description": "Der Rollladen schließt zuerst vollständig. Bleiben Sie in der Nähe (oder beobachten Sie ihn) und bestätigen Sie dann, um das Schließen zu starten."
+        },
+        "calib_closed": {
+          "title": "Kalibrierung — 2/5",
+          "description": "Warten Sie, bis der Rollladen **ganz geschlossen** ist. Dann bestätigen: Er beginnt zu öffnen und die Zeitmessung startet."
+        },
+        "calib_up": {
+          "title": "Kalibrierung — 3/5: Öffnen",
+          "description": "Der Rollladen öffnet… Bestätigen Sie, **sobald er oben ankommt**."
+        },
+        "calib_top": {
+          "title": "Kalibrierung — 4/5",
+          "description": "Gemessenes Öffnen: {up} s. Bestätigen, um das Schließen zu starten (die Zeitmessung startet neu)."
+        },
+        "calib_down": {
+          "title": "Kalibrierung — 5/5: Schließen",
+          "description": "Der Rollladen schließt… Bestätigen Sie, **sobald er unten ankommt**."
+        },
+        "calib_result": {
+          "title": "Gemessene Zeiten",
+          "description": "Vorherige Werte: {old_up} s Öffnen, {old_down} s Schließen. Bei Bedarf anpassen, dann speichern.",
+          "data": {
+            "time_up": "Öffnungszeit",
+            "time_down": "Schließzeit"
+          }
+        }
+      },
+      "error": {
+        "name_required": "Geben Sie dem Rollladen einen Namen.",
+        "stop_entity_required": "Wählen Sie die Stopp-Entität oder eine andere Stoppmethode."
+      },
+      "abort": {
+        "reconfigure_successful": "Rollladen aktualisiert.",
+        "not_loaded": "Der Rollladen ist nicht geladen: Versuchen Sie es gleich noch einmal."
+      }
+    },
+    "liaison": {
+      "entry_type": "Wandschalter",
+      "initiate_flow": {
+        "user": "Wandschalter verknüpfen",
+        "reconfigure": "Verknüpfung bearbeiten"
+      },
+      "step": {
+        "user": {
+          "title": "Einen Schalter mit einem Rollladen verknüpfen",
+          "description": "Für einen Rollladen, der nicht von Volets HOLM verwaltet wird (Z-Wave, Zigbee…).",
+          "data": {
+            "name": "Name (optional)",
+            "event": "Wandschalter",
+            "cover": "Gesteuerter Rollladen",
+            "stop_when_moving": "Drücken während der Fahrt = Stopp",
+            "inverted": "Auf / Ab tauschen"
+          },
+          "data_description": {
+            "name": "Standard: „Schalter → Rollladen“.",
+            "event": "Die Ereignis-Entität des Schalters (z. B. RFXCOM).",
+            "cover": "Jeder Home-Assistant-Rollladen (Z-Wave, Zigbee, Volets HOLM…).",
+            "stop_when_moving": "Ein Druck in Fahrtrichtung stoppt den Rollladen.",
+            "inverted": "Ankreuzen, wenn „an“ schließen soll."
+          }
+        },
+        "reconfigure": {
+          "title": "Verknüpfung bearbeiten",
+          "data": {
+            "name": "Name (optional)",
+            "event": "Wandschalter",
+            "cover": "Gesteuerter Rollladen",
+            "stop_when_moving": "Drücken während der Fahrt = Stopp",
+            "inverted": "Auf / Ab tauschen"
+          },
+          "data_description": {
+            "name": "Standard: „Schalter → Rollladen“.",
+            "event": "Die Ereignis-Entität des Schalters (z. B. RFXCOM).",
+            "cover": "Jeder Home-Assistant-Rollladen (Z-Wave, Zigbee, Volets HOLM…).",
+            "stop_when_moving": "Ein Druck in Fahrtrichtung stoppt den Rollladen.",
+            "inverted": "Ankreuzen, wenn „an“ schließen soll."
+          }
+        }
+      },
+      "abort": {
+        "reconfigure_successful": "Verknüpfung aktualisiert."
+      }
+    }
+  },
+  "selector": {
+    "wall_mode": {
+      "options": {
+        "relay": "Über Home Assistant weitergeleitet",
+        "direct": "Mit dem Motor gekoppelt (nur Verfolgung)"
+      }
+    },
+    "stop_mode": {
+      "options": {
+        "repeat": "Letzten Befehl erneut senden (Funk)",
+        "entity": "Eine Stopp-Entität aufrufen",
+        "none": "Kein Stoppbefehl"
+      }
+    }
+  },
+  "issues": {
+    "legacy_yaml": {
+      "title": "Alte Rollladen-Konfiguration noch aktiv",
+      "description": "{platform}-Rollläden werden noch aus configuration.yaml geladen ({entities}). Entfernen Sie den Abschnitt `cover: - platform: {platform}` (und die zugehörigen Skripte und input_text, falls nicht mehr nötig) und starten Sie Home Assistant neu, sonst erscheinen diese Rollläden doppelt."
+    }
+  },
+  "services": {
+    "set_known_position": {
+      "name": "Bekannte Position setzen",
+      "description": "Korrigiert die bekannte Position, ohne etwas an den Motor zu senden.",
+      "fields": {
+        "position": {
+          "name": "Position",
+          "description": "0 = geschlossen, 100 = offen."
+        }
+      }
+    },
+    "recalibrate": {
+      "name": "Neu synchronisieren",
+      "description": "Fährt den Rollladen mit voller Fahrt in die nächste Endlage, um von einer bekannten Position neu zu starten."
+    },
+    "detect_legacy": {
+      "name": "Bestehende Einrichtung analysieren",
+      "description": "Listet die Cover-Time-Based-Rollläden und Wandschalter auf, die Volets HOLM importieren kann, ohne etwas zu ändern."
+    }
+  }
+}

@@ -1,0 +1,251 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Volets HOLM",
+        "description": "Le tue tapparelle a tempo (RFXCOM e altre) e i pulsanti a muro, configurati dall'interfaccia.\n\nRilevati: **{volets}** tapparella/e Cover Time Based e **{liaisons}** altro/i collegamento/i a pulsanti, gestiti da **{automations}** automazione/i.\n\n{details}",
+        "data": {
+          "import_legacy": "Importa la configurazione esistente",
+          "disable_automations": "Disattiva le automazioni dei pulsanti sostituite"
+        },
+        "data_description": {
+          "import_legacy": "Le tapparelle mantengono entity_id, area, alias vocali ed etichette: automazioni, gruppi e dashboard continuano a funzionare. Poi rimuovi la sezione cover_rf_time_based da configuration.yaml e riavvia.",
+          "disable_automations": "Vengono solo disattivate, non eliminate: puoi riattivarle se serve."
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Volets HOLM è già configurato.",
+      "single_instance_allowed": "Volets HOLM è già configurato."
+    }
+  },
+  "config_subentries": {
+    "volet": {
+      "entry_type": "Tapparella",
+      "initiate_flow": {
+        "user": "Aggiungi una tapparella",
+        "reconfigure": "Modifica la tapparella"
+      },
+      "step": {
+        "user": {
+          "title": "Nuova tapparella",
+          "description": "Una tapparella la cui posizione è calcolata dal tempo di corsa.",
+          "data": {
+            "name": "Nome della tapparella",
+            "switch": "Comando del motore",
+            "inverted": "Comando invertito",
+            "time_up": "Tempo di apertura",
+            "time_down": "Tempo di chiusura",
+            "area_id": "Area",
+            "wall_event": "Pulsante a muro o telecomando",
+            "wall_mode": "Comportamento del pulsante"
+          },
+          "data_description": {
+            "name": "Nome visualizzato, es. «Tapparella ufficio».",
+            "switch": "L'entità che comanda il motore (es. un interruttore RFXCOM): on = apri, off = chiudi.",
+            "inverted": "Spunta se la tapparella si chiude quando il comando viene attivato.",
+            "time_up": "Tempo per un'apertura completa, da chiusa ad aperta. La procedura di calibrazione può misurarlo per te.",
+            "time_down": "Tempo per una chiusura completa, da aperta a chiusa.",
+            "area_id": "Area del dispositivo creato per questa tapparella.",
+            "wall_event": "Facoltativo: l'entità evento del pulsante (RFXCOM crea un'entità evento per pulsante).",
+            "wall_mode": "«Inoltrato»: le pressioni passano da Home Assistant (pressione = apri / chiudi, o stop se già in movimento). «Associato al motore»: il motore reagisce da solo, Volets HOLM segue solo la posizione."
+          },
+          "sections": {
+            "avance": {
+              "name": "Impostazioni avanzate",
+              "description": "Arresto del motore e risincronizzazione ai finecorsa.",
+              "data": {
+                "stop_mode": "Come fermare il motore",
+                "stop_entity": "Entità di arresto",
+                "send_stop_at_ends": "Invia uno stop a fine corsa",
+                "endstop_extra": "Tempo di risincronizzazione al finecorsa",
+                "recal_full": "Risincronizzazione completa se già a finecorsa"
+              },
+              "data_description": {
+                "stop_mode": "I moduli RF (AC, DI-O, Chacon…) si fermano quando viene reinviato lo stesso comando.",
+                "stop_entity": "Solo se l'arresto usa uno script, pulsante o interruttore dedicato.",
+                "send_stop_at_ends": "Invia lo stop una volta raggiunto il finecorsa (utile per i moduli che restano attivi).",
+                "endstop_extra": "Secondi aggiunti andando a un finecorsa (tutto aperto o chiuso) per assorbire la deriva.",
+                "recal_full": "Se la tapparella risulta già a finecorsa, un nuovo comando esegue una corsa completa: utile quando un comando radio precedente è andato perso."
+              }
+            }
+          }
+        },
+        "edit": {
+          "title": "Modifica la tapparella",
+          "data": {
+            "name": "Nome della tapparella",
+            "switch": "Comando del motore",
+            "inverted": "Comando invertito",
+            "time_up": "Tempo di apertura",
+            "time_down": "Tempo di chiusura",
+            "area_id": "Area",
+            "wall_event": "Pulsante a muro o telecomando",
+            "wall_mode": "Comportamento del pulsante"
+          },
+          "data_description": {
+            "name": "Nome visualizzato, es. «Tapparella ufficio».",
+            "switch": "L'entità che comanda il motore (es. un interruttore RFXCOM): on = apri, off = chiudi.",
+            "inverted": "Spunta se la tapparella si chiude quando il comando viene attivato.",
+            "time_up": "Tempo per un'apertura completa, da chiusa ad aperta. La procedura di calibrazione può misurarlo per te.",
+            "time_down": "Tempo per una chiusura completa, da aperta a chiusa.",
+            "area_id": "Area del dispositivo creato per questa tapparella.",
+            "wall_event": "Facoltativo: l'entità evento del pulsante (RFXCOM crea un'entità evento per pulsante).",
+            "wall_mode": "«Inoltrato»: le pressioni passano da Home Assistant (pressione = apri / chiudi, o stop se già in movimento). «Associato al motore»: il motore reagisce da solo, Volets HOLM segue solo la posizione."
+          },
+          "sections": {
+            "avance": {
+              "name": "Impostazioni avanzate",
+              "description": "Arresto del motore e risincronizzazione ai finecorsa.",
+              "data": {
+                "stop_mode": "Come fermare il motore",
+                "stop_entity": "Entità di arresto",
+                "send_stop_at_ends": "Invia uno stop a fine corsa",
+                "endstop_extra": "Tempo di risincronizzazione al finecorsa",
+                "recal_full": "Risincronizzazione completa se già a finecorsa"
+              },
+              "data_description": {
+                "stop_mode": "I moduli RF (AC, DI-O, Chacon…) si fermano quando viene reinviato lo stesso comando.",
+                "stop_entity": "Solo se l'arresto usa uno script, pulsante o interruttore dedicato.",
+                "send_stop_at_ends": "Invia lo stop una volta raggiunto il finecorsa (utile per i moduli che restano attivi).",
+                "endstop_extra": "Secondi aggiunti andando a un finecorsa (tutto aperto o chiuso) per assorbire la deriva.",
+                "recal_full": "Se la tapparella risulta già a finecorsa, un nuovo comando esegue una corsa completa: utile quando un comando radio precedente è andato perso."
+              }
+            }
+          }
+        },
+        "reconfigure": {
+          "title": "Cosa vuoi fare?",
+          "menu_options": {
+            "edit": "Modifica le impostazioni",
+            "calib": "Calibra i tempi di corsa (procedura guidata)"
+          }
+        },
+        "calib": {
+          "title": "Calibrazione — 1/5",
+          "description": "La tapparella prima si chiuderà completamente. Resta vicino (o guardala), poi conferma per iniziare la chiusura."
+        },
+        "calib_closed": {
+          "title": "Calibrazione — 2/5",
+          "description": "Attendi che la tapparella sia **completamente chiusa**. Poi conferma: inizia ad aprirsi e parte il cronometro."
+        },
+        "calib_up": {
+          "title": "Calibrazione — 3/5: apertura",
+          "description": "La tapparella si sta aprendo… Conferma **appena arriva in alto**."
+        },
+        "calib_top": {
+          "title": "Calibrazione — 4/5",
+          "description": "Apertura misurata: {up} s. Conferma per iniziare la chiusura (il cronometro riparte)."
+        },
+        "calib_down": {
+          "title": "Calibrazione — 5/5: chiusura",
+          "description": "La tapparella si sta chiudendo… Conferma **appena arriva in basso**."
+        },
+        "calib_result": {
+          "title": "Tempi misurati",
+          "description": "Valori precedenti: {old_up} s apertura, {old_down} s chiusura. Regola se necessario, poi salva.",
+          "data": {
+            "time_up": "Tempo di apertura",
+            "time_down": "Tempo di chiusura"
+          }
+        }
+      },
+      "error": {
+        "name_required": "Dai un nome alla tapparella.",
+        "stop_entity_required": "Scegli l'entità di arresto o un altro metodo di arresto."
+      },
+      "abort": {
+        "reconfigure_successful": "Tapparella aggiornata.",
+        "not_loaded": "La tapparella non è caricata: riprova tra un momento."
+      }
+    },
+    "liaison": {
+      "entry_type": "Pulsante a muro",
+      "initiate_flow": {
+        "user": "Collega un pulsante a muro",
+        "reconfigure": "Modifica il collegamento"
+      },
+      "step": {
+        "user": {
+          "title": "Collega un pulsante a una tapparella",
+          "description": "Per una tapparella non gestita da Volets HOLM (Z-Wave, Zigbee…).",
+          "data": {
+            "name": "Nome (facoltativo)",
+            "event": "Pulsante a muro",
+            "cover": "Tapparella comandata",
+            "stop_when_moving": "Pressione in movimento = stop",
+            "inverted": "Inverti su / giù"
+          },
+          "data_description": {
+            "name": "Predefinito: «pulsante → tapparella».",
+            "event": "L'entità evento del pulsante (es. RFXCOM).",
+            "cover": "Qualsiasi tapparella di Home Assistant (Z-Wave, Zigbee, Volets HOLM…).",
+            "stop_when_moving": "Una pressione nella direzione di corsa ferma la tapparella.",
+            "inverted": "Spunta se «on» deve chiudere."
+          }
+        },
+        "reconfigure": {
+          "title": "Modifica il collegamento",
+          "data": {
+            "name": "Nome (facoltativo)",
+            "event": "Pulsante a muro",
+            "cover": "Tapparella comandata",
+            "stop_when_moving": "Pressione in movimento = stop",
+            "inverted": "Inverti su / giù"
+          },
+          "data_description": {
+            "name": "Predefinito: «pulsante → tapparella».",
+            "event": "L'entità evento del pulsante (es. RFXCOM).",
+            "cover": "Qualsiasi tapparella di Home Assistant (Z-Wave, Zigbee, Volets HOLM…).",
+            "stop_when_moving": "Una pressione nella direzione di corsa ferma la tapparella.",
+            "inverted": "Spunta se «on» deve chiudere."
+          }
+        }
+      },
+      "abort": {
+        "reconfigure_successful": "Collegamento aggiornato."
+      }
+    }
+  },
+  "selector": {
+    "wall_mode": {
+      "options": {
+        "relay": "Inoltrato da Home Assistant",
+        "direct": "Associato al motore (solo monitoraggio)"
+      }
+    },
+    "stop_mode": {
+      "options": {
+        "repeat": "Reinvia l'ultimo comando (RF)",
+        "entity": "Chiama un'entità di arresto",
+        "none": "Nessun comando di arresto"
+      }
+    }
+  },
+  "issues": {
+    "legacy_yaml": {
+      "title": "Vecchia configurazione delle tapparelle ancora attiva",
+      "description": "Le tapparelle {platform} sono ancora caricate da configuration.yaml ({entities}). Rimuovi la sezione `cover: - platform: {platform}` (e gli script e input_text collegati se non servono più), poi riavvia Home Assistant, altrimenti queste tapparelle appariranno due volte."
+    }
+  },
+  "services": {
+    "set_known_position": {
+      "name": "Imposta la posizione nota",
+      "description": "Corregge la posizione nota senza inviare nulla al motore.",
+      "fields": {
+        "position": {
+          "name": "Posizione",
+          "description": "0 = chiusa, 100 = aperta."
+        }
+      }
+    },
+    "recalibrate": {
+      "name": "Risincronizza",
+      "description": "Porta la tapparella al finecorsa più vicino con una corsa completa, per ripartire da una posizione nota."
+    },
+    "detect_legacy": {
+      "name": "Analizza la configurazione esistente",
+      "description": "Elenca le tapparelle Cover Time Based e i pulsanti che Volets HOLM può importare, senza modificare nulla."
+    }
+  }
+}

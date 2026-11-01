@@ -5,7 +5,7 @@ from typing import Final
 
 DOMAIN: Final = "volets_holm"
 NAME: Final = "Volets HOLM"
-VERSION: Final = "1.0.1"
+VERSION: Final = "1.1.0"
 
 SUB_VOLET: Final = "volet"
 SUB_LIAISON: Final = "liaison"

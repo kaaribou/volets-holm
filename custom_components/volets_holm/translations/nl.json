@@ -1,0 +1,251 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Volets HOLM",
+        "description": "Je tijdgestuurde rolluiken (RFXCOM en andere) en wandschakelaars, ingesteld via de interface.\n\nGevonden: **{volets}** Cover Time Based-rolluik(en) en **{liaisons}** andere wandschakelaarkoppeling(en), aangestuurd door **{automations}** automatisering(en).\n\n{details}",
+        "data": {
+          "import_legacy": "Bestaande configuratie importeren",
+          "disable_automations": "Vervangen wandschakelaar-automatiseringen uitschakelen"
+        },
+        "data_description": {
+          "import_legacy": "Rolluiken behouden hun entity_id, ruimte, spraakaliassen en labels: je automatiseringen, groepen en dashboards blijven werken. Verwijder daarna de sectie cover_rf_time_based uit configuration.yaml en herstart.",
+          "disable_automations": "Ze worden alleen uitgeschakeld, niet verwijderd: je kunt ze zo nodig weer inschakelen."
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Volets HOLM is al ingesteld.",
+      "single_instance_allowed": "Volets HOLM is al ingesteld."
+    }
+  },
+  "config_subentries": {
+    "volet": {
+      "entry_type": "Rolluik",
+      "initiate_flow": {
+        "user": "Rolluik toevoegen",
+        "reconfigure": "Rolluik bewerken"
+      },
+      "step": {
+        "user": {
+          "title": "Nieuw rolluik",
+          "description": "Een rolluik waarvan de positie wordt berekend uit de looptijd.",
+          "data": {
+            "name": "Naam van het rolluik",
+            "switch": "Motorbediening",
+            "inverted": "Omgekeerde bediening",
+            "time_up": "Openingstijd",
+            "time_down": "Sluittijd",
+            "area_id": "Ruimte",
+            "wall_event": "Wandschakelaar of afstandsbediening",
+            "wall_mode": "Gedrag van de schakelaar"
+          },
+          "data_description": {
+            "name": "Weergavenaam, bv. ‘Rolluik kantoor’.",
+            "switch": "De entiteit die de motor aanstuurt (bv. een RFXCOM-schakelaar): aan = openen, uit = sluiten.",
+            "inverted": "Aanvinken als het rolluik sluit wanneer de bediening wordt ingeschakeld.",
+            "time_up": "Tijd voor volledig openen, van dicht tot open. De kalibratiewizard kan dit voor je meten.",
+            "time_down": "Tijd voor volledig sluiten, van open tot dicht.",
+            "area_id": "Ruimte van het apparaat dat voor dit rolluik wordt gemaakt.",
+            "wall_event": "Optioneel: de gebeurtenisentiteit van de schakelaar (RFXCOM maakt er één per schakelaar).",
+            "wall_mode": "‘Doorgegeven’: drukken gaat via Home Assistant (drukken = openen / sluiten, of stoppen als hij al beweegt). ‘Gekoppeld aan de motor’: de motor reageert zelf, Volets HOLM volgt alleen de positie."
+          },
+          "sections": {
+            "avance": {
+              "name": "Geavanceerde instellingen",
+              "description": "Motorstop en hersynchronisatie bij de eindstand.",
+              "data": {
+                "stop_mode": "Hoe de motor te stoppen",
+                "stop_entity": "Stop-entiteit",
+                "send_stop_at_ends": "Stop sturen aan het einde van de beweging",
+                "endstop_extra": "Hersynchronisatietijd bij eindstand",
+                "recal_full": "Volledige hersynchronisatie als hij al in eindstand staat"
+              },
+              "data_description": {
+                "stop_mode": "RF-modules (AC, DI-O, Chacon…) stoppen wanneer hetzelfde commando opnieuw wordt verzonden.",
+                "stop_entity": "Alleen als het stoppen een eigen script, knop of schakelaar gebruikt.",
+                "send_stop_at_ends": "Stuurt de stop zodra de eindstand is bereikt (handig voor modules die actief blijven).",
+                "endstop_extra": "Seconden die worden toegevoegd bij beweging naar een eindstand (helemaal open of dicht) om afwijking op te vangen.",
+                "recal_full": "Als het rolluik al in de eindstand staat, voert een nieuw commando een volledige beweging uit: handig als een eerder radiocommando gemist is."
+              }
+            }
+          }
+        },
+        "edit": {
+          "title": "Rolluik bewerken",
+          "data": {
+            "name": "Naam van het rolluik",
+            "switch": "Motorbediening",
+            "inverted": "Omgekeerde bediening",
+            "time_up": "Openingstijd",
+            "time_down": "Sluittijd",
+            "area_id": "Ruimte",
+            "wall_event": "Wandschakelaar of afstandsbediening",
+            "wall_mode": "Gedrag van de schakelaar"
+          },
+          "data_description": {
+            "name": "Weergavenaam, bv. ‘Rolluik kantoor’.",
+            "switch": "De entiteit die de motor aanstuurt (bv. een RFXCOM-schakelaar): aan = openen, uit = sluiten.",
+            "inverted": "Aanvinken als het rolluik sluit wanneer de bediening wordt ingeschakeld.",
+            "time_up": "Tijd voor volledig openen, van dicht tot open. De kalibratiewizard kan dit voor je meten.",
+            "time_down": "Tijd voor volledig sluiten, van open tot dicht.",
+            "area_id": "Ruimte van het apparaat dat voor dit rolluik wordt gemaakt.",
+            "wall_event": "Optioneel: de gebeurtenisentiteit van de schakelaar (RFXCOM maakt er één per schakelaar).",
+            "wall_mode": "‘Doorgegeven’: drukken gaat via Home Assistant (drukken = openen / sluiten, of stoppen als hij al beweegt). ‘Gekoppeld aan de motor’: de motor reageert zelf, Volets HOLM volgt alleen de positie."
+          },
+          "sections": {
+            "avance": {
+              "name": "Geavanceerde instellingen",
+              "description": "Motorstop en hersynchronisatie bij de eindstand.",
+              "data": {
+                "stop_mode": "Hoe de motor te stoppen",
+                "stop_entity": "Stop-entiteit",
+                "send_stop_at_ends": "Stop sturen aan het einde van de beweging",
+                "endstop_extra": "Hersynchronisatietijd bij eindstand",
+                "recal_full": "Volledige hersynchronisatie als hij al in eindstand staat"
+              },
+              "data_description": {
+                "stop_mode": "RF-modules (AC, DI-O, Chacon…) stoppen wanneer hetzelfde commando opnieuw wordt verzonden.",
+                "stop_entity": "Alleen als het stoppen een eigen script, knop of schakelaar gebruikt.",
+                "send_stop_at_ends": "Stuurt de stop zodra de eindstand is bereikt (handig voor modules die actief blijven).",
+                "endstop_extra": "Seconden die worden toegevoegd bij beweging naar een eindstand (helemaal open of dicht) om afwijking op te vangen.",
+                "recal_full": "Als het rolluik al in de eindstand staat, voert een nieuw commando een volledige beweging uit: handig als een eerder radiocommando gemist is."
+              }
+            }
+          }
+        },
+        "reconfigure": {
+          "title": "Wat wil je doen?",
+          "menu_options": {
+            "edit": "Instellingen bewerken",
+            "calib": "Looptijden kalibreren (wizard)"
+          }
+        },
+        "calib": {
+          "title": "Kalibratie — 1/5",
+          "description": "Het rolluik sluit eerst helemaal. Blijf in de buurt (of kijk ernaar) en bevestig om te beginnen met sluiten."
+        },
+        "calib_closed": {
+          "title": "Kalibratie — 2/5",
+          "description": "Wacht tot het rolluik **helemaal dicht** is. Bevestig dan: het begint te openen en de timer start."
+        },
+        "calib_up": {
+          "title": "Kalibratie — 3/5: openen",
+          "description": "Het rolluik gaat open… Bevestig **zodra het bovenaan is**."
+        },
+        "calib_top": {
+          "title": "Kalibratie — 4/5",
+          "description": "Gemeten opening: {up} s. Bevestig om te beginnen met sluiten (de timer begint opnieuw)."
+        },
+        "calib_down": {
+          "title": "Kalibratie — 5/5: sluiten",
+          "description": "Het rolluik gaat dicht… Bevestig **zodra het onderaan is**."
+        },
+        "calib_result": {
+          "title": "Gemeten tijden",
+          "description": "Vorige waarden: {old_up} s openen, {old_down} s sluiten. Pas zo nodig aan en sla op.",
+          "data": {
+            "time_up": "Openingstijd",
+            "time_down": "Sluittijd"
+          }
+        }
+      },
+      "error": {
+        "name_required": "Geef het rolluik een naam.",
+        "stop_entity_required": "Kies de stop-entiteit of een andere stopmethode."
+      },
+      "abort": {
+        "reconfigure_successful": "Rolluik bijgewerkt.",
+        "not_loaded": "Het rolluik is niet geladen: probeer het zo opnieuw."
+      }
+    },
+    "liaison": {
+      "entry_type": "Wandschakelaar",
+      "initiate_flow": {
+        "user": "Wandschakelaar koppelen",
+        "reconfigure": "Koppeling bewerken"
+      },
+      "step": {
+        "user": {
+          "title": "Een schakelaar aan een rolluik koppelen",
+          "description": "Voor een rolluik dat niet door Volets HOLM wordt beheerd (Z-Wave, Zigbee…).",
+          "data": {
+            "name": "Naam (optioneel)",
+            "event": "Wandschakelaar",
+            "cover": "Bediend rolluik",
+            "stop_when_moving": "Drukken tijdens beweging = stop",
+            "inverted": "Op / neer omwisselen"
+          },
+          "data_description": {
+            "name": "Standaard: ‘schakelaar → rolluik’.",
+            "event": "De gebeurtenisentiteit van de schakelaar (bv. RFXCOM).",
+            "cover": "Elk rolluik in Home Assistant (Z-Wave, Zigbee, Volets HOLM…).",
+            "stop_when_moving": "Drukken in de bewegingsrichting stopt het rolluik.",
+            "inverted": "Aanvinken als ‘aan’ moet sluiten."
+          }
+        },
+        "reconfigure": {
+          "title": "Koppeling bewerken",
+          "data": {
+            "name": "Naam (optioneel)",
+            "event": "Wandschakelaar",
+            "cover": "Bediend rolluik",
+            "stop_when_moving": "Drukken tijdens beweging = stop",
+            "inverted": "Op / neer omwisselen"
+          },
+          "data_description": {
+            "name": "Standaard: ‘schakelaar → rolluik’.",
+            "event": "De gebeurtenisentiteit van de schakelaar (bv. RFXCOM).",
+            "cover": "Elk rolluik in Home Assistant (Z-Wave, Zigbee, Volets HOLM…).",
+            "stop_when_moving": "Drukken in de bewegingsrichting stopt het rolluik.",
+            "inverted": "Aanvinken als ‘aan’ moet sluiten."
+          }
+        }
+      },
+      "abort": {
+        "reconfigure_successful": "Koppeling bijgewerkt."
+      }
+    }
+  },
+  "selector": {
+    "wall_mode": {
+      "options": {
+        "relay": "Doorgegeven door Home Assistant",
+        "direct": "Gekoppeld aan de motor (alleen volgen)"
+      }
+    },
+    "stop_mode": {
+      "options": {
+        "repeat": "Laatste commando opnieuw sturen (RF)",
+        "entity": "Een stop-entiteit aanroepen",
+        "none": "Geen stopcommando"
+      }
+    }
+  },
+  "issues": {
+    "legacy_yaml": {
+      "title": "Oude rolluikconfiguratie nog actief",
+      "description": "{platform}-rolluiken worden nog geladen uit configuration.yaml ({entities}). Verwijder de sectie `cover: - platform: {platform}` (en de bijbehorende scripts en input_text als ze niet meer nodig zijn) en herstart Home Assistant, anders verschijnen deze rolluiken dubbel."
+    }
+  },
+  "services": {
+    "set_known_position": {
+      "name": "Bekende positie instellen",
+      "description": "Corrigeert de bekende positie zonder iets naar de motor te sturen.",
+      "fields": {
+        "position": {
+          "name": "Positie",
+          "description": "0 = dicht, 100 = open."
+        }
+      }
+    },
+    "recalibrate": {
+      "name": "Hersynchroniseren",
+      "description": "Stuurt het rolluik met een volledige beweging naar de dichtstbijzijnde eindstand, om vanaf een bekende positie te herstarten."
+    },
+    "detect_legacy": {
+      "name": "Bestaande configuratie analyseren",
+      "description": "Toont de Cover Time Based-rolluiken en wandschakelaars die Volets HOLM kan importeren, zonder iets te wijzigen."
+    }
+  }
+}

@@ -4,6 +4,8 @@
 ![Version](https://img.shields.io/github/v/release/kaaribou/volets-holm)
 ![Home Assistant](https://img.shields.io/badge/Home%20Assistant-2025.6%2B-03a9f4)
 
+🇫🇷 Français · [🇬🇧 English](README.en.md)
+
 **Des volets radio sans retour d'état (RFXCOM, DI-O, Chacon…) qui connaissent leur position, et leurs interrupteurs muraux, le tout réglé depuis l'interface.**
 
 Beaucoup de volets radio ne disent jamais où ils en sont : on leur envoie « monte » ou « descends », et c'est tout. Volets HOLM calcule la position d'après le **temps de course**, gère l'**arrêt** (y compris pour les modules qui s'arrêtent quand on renvoie la même commande), les **interrupteurs muraux** et les **télécommandes**, et se configure entièrement dans **Paramètres → Appareils et services**.
@@ -24,6 +26,12 @@ Beaucoup de volets radio ne disent jamais où ils en sont : on leur envoie « mo
 - 🔁 **Reprise de Cover Time Based** en un clic, en gardant les entity_id, pièces, alias vocaux et labels.
 
 ![Volets HOLM dans Home Assistant](docs/images/volets-holm-apercu.jpg)
+
+
+### 🆕 Nouveautés de la 1.1.0
+
+- 🌍 **8 langues** : l'intégration (configuration, options, entités, actions) est traduite en français, anglais, allemand, espagnol, italien, néerlandais, portugais et polonais, selon la langue de Home Assistant.
+- 🇬🇧 README en anglais.
 
 ---
 

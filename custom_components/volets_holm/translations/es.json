@@ -1,0 +1,251 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Volets HOLM",
+        "description": "Tus persianas temporizadas (RFXCOM y otras) y pulsadores de pared, configurados desde la interfaz.\n\nDetectado: **{volets}** persiana(s) Cover Time Based y **{liaisons}** otro(s) enlace(s) de pulsador, gestionados por **{automations}** automatización(es).\n\n{details}",
+        "data": {
+          "import_legacy": "Importar la configuración existente",
+          "disable_automations": "Desactivar las automatizaciones de pulsadores reemplazadas"
+        },
+        "data_description": {
+          "import_legacy": "Las persianas conservan su entity_id, área, alias de voz y etiquetas: tus automatizaciones, grupos y paneles siguen funcionando. Después elimina la sección cover_rf_time_based de configuration.yaml y reinicia.",
+          "disable_automations": "Solo se desactivan, no se eliminan: puedes reactivarlas si hace falta."
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "Volets HOLM ya está configurado.",
+      "single_instance_allowed": "Volets HOLM ya está configurado."
+    }
+  },
+  "config_subentries": {
+    "volet": {
+      "entry_type": "Persiana",
+      "initiate_flow": {
+        "user": "Añadir una persiana",
+        "reconfigure": "Editar la persiana"
+      },
+      "step": {
+        "user": {
+          "title": "Nueva persiana",
+          "description": "Una persiana cuya posición se calcula a partir de su tiempo de recorrido.",
+          "data": {
+            "name": "Nombre de la persiana",
+            "switch": "Control del motor",
+            "inverted": "Control invertido",
+            "time_up": "Tiempo de apertura",
+            "time_down": "Tiempo de cierre",
+            "area_id": "Área",
+            "wall_event": "Pulsador de pared o mando",
+            "wall_mode": "Comportamiento del pulsador"
+          },
+          "data_description": {
+            "name": "Nombre mostrado, p. ej. «Persiana despacho».",
+            "switch": "La entidad que acciona el motor (p. ej. un interruptor RFXCOM): on = abrir, off = cerrar.",
+            "inverted": "Marca si la persiana se cierra al activar el control.",
+            "time_up": "Tiempo de una apertura completa, de cerrado a abierto. El asistente de calibración puede medirlo por ti.",
+            "time_down": "Tiempo de un cierre completo, de abierto a cerrado.",
+            "area_id": "Área del dispositivo creado para esta persiana.",
+            "wall_event": "Opcional: la entidad de evento del pulsador (RFXCOM crea una entidad de evento por pulsador).",
+            "wall_mode": "«Retransmitido»: las pulsaciones pasan por Home Assistant (pulsar = abrir / cerrar, o parar si ya se mueve). «Emparejado con el motor»: el motor reacciona solo, Volets HOLM solo sigue la posición."
+          },
+          "sections": {
+            "avance": {
+              "name": "Ajustes avanzados",
+              "description": "Parada del motor y resincronización en los topes.",
+              "data": {
+                "stop_mode": "Cómo parar el motor",
+                "stop_entity": "Entidad de parada",
+                "send_stop_at_ends": "Enviar una parada al final del recorrido",
+                "endstop_extra": "Tiempo de resincronización en el tope",
+                "recal_full": "Resincronización completa si ya está en el tope"
+              },
+              "data_description": {
+                "stop_mode": "Los módulos RF (AC, DI-O, Chacon…) se paran cuando se reenvía la misma orden.",
+                "stop_entity": "Solo si la parada usa un script, botón o interruptor propio.",
+                "send_stop_at_ends": "Envía la parada al alcanzar el tope (útil para módulos que siguen activos).",
+                "endstop_extra": "Segundos añadidos al ir a un tope (totalmente abierto o cerrado) para absorber la deriva.",
+                "recal_full": "Si la persiana ya figura en el tope, una nueva orden realiza un recorrido completo: útil cuando se perdió una orden de radio anterior."
+              }
+            }
+          }
+        },
+        "edit": {
+          "title": "Editar la persiana",
+          "data": {
+            "name": "Nombre de la persiana",
+            "switch": "Control del motor",
+            "inverted": "Control invertido",
+            "time_up": "Tiempo de apertura",
+            "time_down": "Tiempo de cierre",
+            "area_id": "Área",
+            "wall_event": "Pulsador de pared o mando",
+            "wall_mode": "Comportamiento del pulsador"
+          },
+          "data_description": {
+            "name": "Nombre mostrado, p. ej. «Persiana despacho».",
+            "switch": "La entidad que acciona el motor (p. ej. un interruptor RFXCOM): on = abrir, off = cerrar.",
+            "inverted": "Marca si la persiana se cierra al activar el control.",
+            "time_up": "Tiempo de una apertura completa, de cerrado a abierto. El asistente de calibración puede medirlo por ti.",
+            "time_down": "Tiempo de un cierre completo, de abierto a cerrado.",
+            "area_id": "Área del dispositivo creado para esta persiana.",
+            "wall_event": "Opcional: la entidad de evento del pulsador (RFXCOM crea una entidad de evento por pulsador).",
+            "wall_mode": "«Retransmitido»: las pulsaciones pasan por Home Assistant (pulsar = abrir / cerrar, o parar si ya se mueve). «Emparejado con el motor»: el motor reacciona solo, Volets HOLM solo sigue la posición."
+          },
+          "sections": {
+            "avance": {
+              "name": "Ajustes avanzados",
+              "description": "Parada del motor y resincronización en los topes.",
+              "data": {
+                "stop_mode": "Cómo parar el motor",
+                "stop_entity": "Entidad de parada",
+                "send_stop_at_ends": "Enviar una parada al final del recorrido",
+                "endstop_extra": "Tiempo de resincronización en el tope",
+                "recal_full": "Resincronización completa si ya está en el tope"
+              },
+              "data_description": {
+                "stop_mode": "Los módulos RF (AC, DI-O, Chacon…) se paran cuando se reenvía la misma orden.",
+                "stop_entity": "Solo si la parada usa un script, botón o interruptor propio.",
+                "send_stop_at_ends": "Envía la parada al alcanzar el tope (útil para módulos que siguen activos).",
+                "endstop_extra": "Segundos añadidos al ir a un tope (totalmente abierto o cerrado) para absorber la deriva.",
+                "recal_full": "Si la persiana ya figura en el tope, una nueva orden realiza un recorrido completo: útil cuando se perdió una orden de radio anterior."
+              }
+            }
+          }
+        },
+        "reconfigure": {
+          "title": "¿Qué quieres hacer?",
+          "menu_options": {
+            "edit": "Editar los ajustes",
+            "calib": "Calibrar los tiempos de recorrido (asistente)"
+          }
+        },
+        "calib": {
+          "title": "Calibración — 1/5",
+          "description": "La persiana primero se cerrará por completo. Quédate cerca (o mírala) y valida para empezar a cerrar."
+        },
+        "calib_closed": {
+          "title": "Calibración — 2/5",
+          "description": "Espera a que la persiana esté **totalmente cerrada**. Luego valida: empieza a abrirse y arranca el cronómetro."
+        },
+        "calib_up": {
+          "title": "Calibración — 3/5: apertura",
+          "description": "La persiana se está abriendo… Valida **en cuanto llegue arriba**."
+        },
+        "calib_top": {
+          "title": "Calibración — 4/5",
+          "description": "Apertura medida: {up} s. Valida para empezar a cerrar (el cronómetro vuelve a empezar)."
+        },
+        "calib_down": {
+          "title": "Calibración — 5/5: cierre",
+          "description": "La persiana se está cerrando… Valida **en cuanto llegue abajo**."
+        },
+        "calib_result": {
+          "title": "Tiempos medidos",
+          "description": "Valores anteriores: {old_up} s de apertura, {old_down} s de cierre. Ajusta si hace falta y guarda.",
+          "data": {
+            "time_up": "Tiempo de apertura",
+            "time_down": "Tiempo de cierre"
+          }
+        }
+      },
+      "error": {
+        "name_required": "Ponle un nombre a la persiana.",
+        "stop_entity_required": "Elige la entidad de parada u otro método de parada."
+      },
+      "abort": {
+        "reconfigure_successful": "Persiana actualizada.",
+        "not_loaded": "La persiana no está cargada: inténtalo de nuevo en un momento."
+      }
+    },
+    "liaison": {
+      "entry_type": "Pulsador de pared",
+      "initiate_flow": {
+        "user": "Vincular un pulsador de pared",
+        "reconfigure": "Editar el vínculo"
+      },
+      "step": {
+        "user": {
+          "title": "Vincular un pulsador a una persiana",
+          "description": "Para una persiana no gestionada por Volets HOLM (Z-Wave, Zigbee…).",
+          "data": {
+            "name": "Nombre (opcional)",
+            "event": "Pulsador de pared",
+            "cover": "Persiana controlada",
+            "stop_when_moving": "Pulsar en movimiento = parar",
+            "inverted": "Invertir subir / bajar"
+          },
+          "data_description": {
+            "name": "Por defecto: «pulsador → persiana».",
+            "event": "La entidad de evento del pulsador (p. ej. RFXCOM).",
+            "cover": "Cualquier persiana de Home Assistant (Z-Wave, Zigbee, Volets HOLM…).",
+            "stop_when_moving": "Una pulsación en el sentido del recorrido para la persiana.",
+            "inverted": "Marca si «on» debe cerrar."
+          }
+        },
+        "reconfigure": {
+          "title": "Editar el vínculo",
+          "data": {
+            "name": "Nombre (opcional)",
+            "event": "Pulsador de pared",
+            "cover": "Persiana controlada",
+            "stop_when_moving": "Pulsar en movimiento = parar",
+            "inverted": "Invertir subir / bajar"
+          },
+          "data_description": {
+            "name": "Por defecto: «pulsador → persiana».",
+            "event": "La entidad de evento del pulsador (p. ej. RFXCOM).",
+            "cover": "Cualquier persiana de Home Assistant (Z-Wave, Zigbee, Volets HOLM…).",
+            "stop_when_moving": "Una pulsación en el sentido del recorrido para la persiana.",
+            "inverted": "Marca si «on» debe cerrar."
+          }
+        }
+      },
+      "abort": {
+        "reconfigure_successful": "Vínculo actualizado."
+      }
+    }
+  },
+  "selector": {
+    "wall_mode": {
+      "options": {
+        "relay": "Retransmitido por Home Assistant",
+        "direct": "Emparejado con el motor (solo seguimiento)"
+      }
+    },
+    "stop_mode": {
+      "options": {
+        "repeat": "Reenviar la última orden (RF)",
+        "entity": "Llamar a una entidad de parada",
+        "none": "Sin orden de parada"
+      }
+    }
+  },
+  "issues": {
+    "legacy_yaml": {
+      "title": "Configuración antigua de persianas aún activa",
+      "description": "Las persianas {platform} todavía se cargan desde configuration.yaml ({entities}). Elimina la sección `cover: - platform: {platform}` (y los scripts e input_text asociados si ya no se usan) y reinicia Home Assistant; si no, estas persianas aparecerán dos veces."
+    }
+  },
+  "services": {
+    "set_known_position": {
+      "name": "Fijar la posición conocida",
+      "description": "Corrige la posición conocida sin enviar nada al motor.",
+      "fields": {
+        "position": {
+          "name": "Posición",
+          "description": "0 = cerrada, 100 = abierta."
+        }
+      }
+    },
+    "recalibrate": {
+      "name": "Resincronizar",
+      "description": "Lleva la persiana al tope más cercano con un recorrido completo, para partir de una posición conocida."
+    },
+    "detect_legacy": {
+      "name": "Analizar la configuración existente",
+      "description": "Enumera las persianas Cover Time Based y los pulsadores que Volets HOLM puede importar, sin cambiar nada."
+    }
+  }
+}

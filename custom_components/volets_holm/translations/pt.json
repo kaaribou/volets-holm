@@ -1,0 +1,251 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Volets HOLM",
+        "description": "Os seus estores temporizados (RFXCOM e outros) e interruptores de parede, configurados a partir da interface.\n\nDetetado: **{volets}** estore(s) Cover Time Based e **{liaisons}** outra(s) ligação(ões) de interruptor, geridos por **{automations}** automatização(ões).\n\n{details}",
+        "data": {
+          "import_legacy": "Importar a configuração existente",
+          "disable_automations": "Desativar as automatizações de interruptores substituídas"
+        },
+        "data_description": {
+          "import_legacy": "Os estores mantêm o entity_id, a área, os aliases de voz e as etiquetas: as automatizações, grupos e painéis continuam a funcionar. Depois remova a secção cover_rf_time_based do configuration.yaml e reinicie.",
+          "disable_automations": "São apenas desativadas, não eliminadas: pode reativá-las se necessário."
+        }
+      }
+    },
+    "abort": {
+      "already_configured": "O Volets HOLM já está configurado.",
+      "single_instance_allowed": "O Volets HOLM já está configurado."
+    }
+  },
+  "config_subentries": {
+    "volet": {
+      "entry_type": "Estore",
+      "initiate_flow": {
+        "user": "Adicionar um estore",
+        "reconfigure": "Editar o estore"
+      },
+      "step": {
+        "user": {
+          "title": "Novo estore",
+          "description": "Um estore cuja posição é calculada a partir do tempo de curso.",
+          "data": {
+            "name": "Nome do estore",
+            "switch": "Comando do motor",
+            "inverted": "Comando invertido",
+            "time_up": "Tempo de abertura",
+            "time_down": "Tempo de fecho",
+            "area_id": "Área",
+            "wall_event": "Interruptor de parede ou comando",
+            "wall_mode": "Comportamento do interruptor"
+          },
+          "data_description": {
+            "name": "Nome apresentado, ex. «Estore escritório».",
+            "switch": "A entidade que comanda o motor (ex. um interruptor RFXCOM): on = abrir, off = fechar.",
+            "inverted": "Marque se o estore fecha quando o comando é ligado.",
+            "time_up": "Tempo de uma abertura completa, de fechado a aberto. O assistente de calibração pode medi-lo por si.",
+            "time_down": "Tempo de um fecho completo, de aberto a fechado.",
+            "area_id": "Área do dispositivo criado para este estore.",
+            "wall_event": "Opcional: a entidade de evento do interruptor (o RFXCOM cria uma por interruptor).",
+            "wall_mode": "«Retransmitido»: os toques passam pelo Home Assistant (toque = abrir / fechar, ou parar se já estiver em movimento). «Emparelhado com o motor»: o motor reage sozinho, o Volets HOLM só acompanha a posição."
+          },
+          "sections": {
+            "avance": {
+              "name": "Definições avançadas",
+              "description": "Paragem do motor e ressincronização nos fins de curso.",
+              "data": {
+                "stop_mode": "Como parar o motor",
+                "stop_entity": "Entidade de paragem",
+                "send_stop_at_ends": "Enviar uma paragem no fim do curso",
+                "endstop_extra": "Tempo de ressincronização no fim de curso",
+                "recal_full": "Ressincronização completa se já estiver no fim de curso"
+              },
+              "data_description": {
+                "stop_mode": "Os módulos RF (AC, DI-O, Chacon…) param quando o mesmo comando é reenviado.",
+                "stop_entity": "Só se a paragem usar um script, botão ou interruptor próprio.",
+                "send_stop_at_ends": "Envia a paragem quando o fim de curso é atingido (útil para módulos que ficam ativos).",
+                "endstop_extra": "Segundos adicionados ao ir para um fim de curso (totalmente aberto ou fechado) para absorver desvios.",
+                "recal_full": "Se o estore já estiver indicado no fim de curso, um novo comando faz um curso completo: útil quando um comando de rádio anterior falhou."
+              }
+            }
+          }
+        },
+        "edit": {
+          "title": "Editar o estore",
+          "data": {
+            "name": "Nome do estore",
+            "switch": "Comando do motor",
+            "inverted": "Comando invertido",
+            "time_up": "Tempo de abertura",
+            "time_down": "Tempo de fecho",
+            "area_id": "Área",
+            "wall_event": "Interruptor de parede ou comando",
+            "wall_mode": "Comportamento do interruptor"
+          },
+          "data_description": {
+            "name": "Nome apresentado, ex. «Estore escritório».",
+            "switch": "A entidade que comanda o motor (ex. um interruptor RFXCOM): on = abrir, off = fechar.",
+            "inverted": "Marque se o estore fecha quando o comando é ligado.",
+            "time_up": "Tempo de uma abertura completa, de fechado a aberto. O assistente de calibração pode medi-lo por si.",
+            "time_down": "Tempo de um fecho completo, de aberto a fechado.",
+            "area_id": "Área do dispositivo criado para este estore.",
+            "wall_event": "Opcional: a entidade de evento do interruptor (o RFXCOM cria uma por interruptor).",
+            "wall_mode": "«Retransmitido»: os toques passam pelo Home Assistant (toque = abrir / fechar, ou parar se já estiver em movimento). «Emparelhado com o motor»: o motor reage sozinho, o Volets HOLM só acompanha a posição."
+          },
+          "sections": {
+            "avance": {
+              "name": "Definições avançadas",
+              "description": "Paragem do motor e ressincronização nos fins de curso.",
+              "data": {
+                "stop_mode": "Como parar o motor",
+                "stop_entity": "Entidade de paragem",
+                "send_stop_at_ends": "Enviar uma paragem no fim do curso",
+                "endstop_extra": "Tempo de ressincronização no fim de curso",
+                "recal_full": "Ressincronização completa se já estiver no fim de curso"
+              },
+              "data_description": {
+                "stop_mode": "Os módulos RF (AC, DI-O, Chacon…) param quando o mesmo comando é reenviado.",
+                "stop_entity": "Só se a paragem usar um script, botão ou interruptor próprio.",
+                "send_stop_at_ends": "Envia a paragem quando o fim de curso é atingido (útil para módulos que ficam ativos).",
+                "endstop_extra": "Segundos adicionados ao ir para um fim de curso (totalmente aberto ou fechado) para absorver desvios.",
+                "recal_full": "Se o estore já estiver indicado no fim de curso, um novo comando faz um curso completo: útil quando um comando de rádio anterior falhou."
+              }
+            }
+          }
+        },
+        "reconfigure": {
+          "title": "O que pretende fazer?",
+          "menu_options": {
+            "edit": "Editar as definições",
+            "calib": "Calibrar os tempos de curso (assistente)"
+          }
+        },
+        "calib": {
+          "title": "Calibração — 1/5",
+          "description": "O estore vai primeiro fechar totalmente. Fique perto (ou observe-o) e valide para começar a fechar."
+        },
+        "calib_closed": {
+          "title": "Calibração — 2/5",
+          "description": "Aguarde até o estore estar **totalmente fechado**. Depois valide: começa a abrir e o cronómetro arranca."
+        },
+        "calib_up": {
+          "title": "Calibração — 3/5: abertura",
+          "description": "O estore está a abrir… Valide **assim que chegar ao topo**."
+        },
+        "calib_top": {
+          "title": "Calibração — 4/5",
+          "description": "Abertura medida: {up} s. Valide para começar a fechar (o cronómetro recomeça)."
+        },
+        "calib_down": {
+          "title": "Calibração — 5/5: fecho",
+          "description": "O estore está a fechar… Valide **assim que chegar ao fundo**."
+        },
+        "calib_result": {
+          "title": "Tempos medidos",
+          "description": "Valores anteriores: {old_up} s de abertura, {old_down} s de fecho. Ajuste se necessário e guarde.",
+          "data": {
+            "time_up": "Tempo de abertura",
+            "time_down": "Tempo de fecho"
+          }
+        }
+      },
+      "error": {
+        "name_required": "Dê um nome ao estore.",
+        "stop_entity_required": "Escolha a entidade de paragem ou outro método de paragem."
+      },
+      "abort": {
+        "reconfigure_successful": "Estore atualizado.",
+        "not_loaded": "O estore não está carregado: tente de novo daqui a pouco."
+      }
+    },
+    "liaison": {
+      "entry_type": "Interruptor de parede",
+      "initiate_flow": {
+        "user": "Ligar um interruptor de parede",
+        "reconfigure": "Editar a ligação"
+      },
+      "step": {
+        "user": {
+          "title": "Ligar um interruptor a um estore",
+          "description": "Para um estore não gerido pelo Volets HOLM (Z-Wave, Zigbee…).",
+          "data": {
+            "name": "Nome (opcional)",
+            "event": "Interruptor de parede",
+            "cover": "Estore controlado",
+            "stop_when_moving": "Toque em movimento = parar",
+            "inverted": "Trocar subir / descer"
+          },
+          "data_description": {
+            "name": "Padrão: «interruptor → estore».",
+            "event": "A entidade de evento do interruptor (ex. RFXCOM).",
+            "cover": "Qualquer estore do Home Assistant (Z-Wave, Zigbee, Volets HOLM…).",
+            "stop_when_moving": "Um toque no sentido do curso para o estore.",
+            "inverted": "Marque se «on» deve fechar."
+          }
+        },
+        "reconfigure": {
+          "title": "Editar a ligação",
+          "data": {
+            "name": "Nome (opcional)",
+            "event": "Interruptor de parede",
+            "cover": "Estore controlado",
+            "stop_when_moving": "Toque em movimento = parar",
+            "inverted": "Trocar subir / descer"
+          },
+          "data_description": {
+            "name": "Padrão: «interruptor → estore».",
+            "event": "A entidade de evento do interruptor (ex. RFXCOM).",
+            "cover": "Qualquer estore do Home Assistant (Z-Wave, Zigbee, Volets HOLM…).",
+            "stop_when_moving": "Um toque no sentido do curso para o estore.",
+            "inverted": "Marque se «on» deve fechar."
+          }
+        }
+      },
+      "abort": {
+        "reconfigure_successful": "Ligação atualizada."
+      }
+    }
+  },
+  "selector": {
+    "wall_mode": {
+      "options": {
+        "relay": "Retransmitido pelo Home Assistant",
+        "direct": "Emparelhado com o motor (só acompanhamento)"
+      }
+    },
+    "stop_mode": {
+      "options": {
+        "repeat": "Reenviar o último comando (RF)",
+        "entity": "Chamar uma entidade de paragem",
+        "none": "Sem comando de paragem"
+      }
+    }
+  },
+  "issues": {
+    "legacy_yaml": {
+      "title": "Configuração antiga de estores ainda ativa",
+      "description": "Os estores {platform} ainda são carregados a partir do configuration.yaml ({entities}). Remova a secção `cover: - platform: {platform}` (e os scripts e input_text associados se já não forem necessários) e reinicie o Home Assistant; caso contrário, estes estores aparecerão duas vezes."
+    }
+  },
+  "services": {
+    "set_known_position": {
+      "name": "Definir a posição conhecida",
+      "description": "Corrige a posição conhecida sem enviar nada ao motor.",
+      "fields": {
+        "position": {
+          "name": "Posição",
+          "description": "0 = fechado, 100 = aberto."
+        }
+      }
+    },
+    "recalibrate": {
+      "name": "Ressincronizar",
+      "description": "Envia o estore para o fim de curso mais próximo com um curso completo, para recomeçar de uma posição conhecida."
+    },
+    "detect_legacy": {
+      "name": "Analisar a configuração existente",
+      "description": "Lista os estores Cover Time Based e os interruptores que o Volets HOLM pode importar, sem alterar nada."
+    }
+  }
+}

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0
+- **8 langues** : traductions allemand, espagnol, italien, néerlandais, portugais et polonais ajoutées (configuration, options, entités, actions), en plus du français et de l'anglais.
+- README en anglais (`README.en.md`).
+
 ## 1.0.1
 
 - **Assistant de calibrage** : la montée ne démarrait pas à l'étape 2 (un « stop » envoyé juste avant l'ordre de montée l'empêchait d'être pris en compte par les modules RF). L'ordre de montée est maintenant envoyé seul.
